@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feral Dungeon Master — Scene Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1113;--p1:#15181b;--p2:#1b1f24;--txt:#e8e8e8;--mut:#a7a7a7;--line:#262b31;--accent:#c73a3a}
+*{box-sizing:border-box} body{margin:0;background:#0f1113;color:var(--txt);font-family:"Playfair Display",serif}
+.wrap{max-width:1200px;margin:0 auto;padding:18px}
+h1{margin:0 0 8px;font-size:26px}
+.btn{border:1px solid var(--line);background:#15181b;color:#eee;border-radius:10px;padding:8px 12px;cursor:pointer;font:700 12px/1 system-ui}
+.btn.red{border-color:#6f1a1a;background:#c73a3a}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:260px 1fr 260px;gap:12px}
+.panel{background:linear-gradient(180deg,var(--p1),var(--p2));border:1px solid var(--line);border-radius:14px;padding:12px;min-height:160px}
+.sectiontitle{font:700 13px/1.2 system-ui;margin-bottom:8px;color:#cfcfcf}
+.small{font:600 12px/1.35 system-ui;color:#cfcfcf}
+.bodybox{position:relative;min-height:520px;overflow:hidden;border:1px solid #22282f;border-radius:12px;background:#12161a}
+.bodybox .label{position:absolute;top:8px;left:8px;background:#0f1418;border:1px solid #2a3036;border-radius:8px;padding:4px 8px;font:700 11px system-ui}
+.bodycanvas{display:grid;grid-template-columns:1fr 1fr;gap:8px;height:100%;padding:10px}
+.subpanel{border:1px solid #20252b;border-radius:10px;padding:8px;background:#0f1418;min-height:240px}
+.subtitle{font:700 12px system-ui;margin:0 0 6px;color:#d9d9d9}
+.zone{display:inline-block;border:1px solid #2a3036;border-radius:8px;padding:6px 8px;margin:3px 3px;cursor:pointer;font:700 11px system-ui;background:#0f1418}
+.zone.active{border-color:#6f1a1a;background:#1a1011}
+.kpill{display:inline-flex;gap:6px;align-items:center;border:1px solid #2a3036;background:#0f1418;color:#eee;border-radius:999px;padding:4px 8px;font:700 11px system-ui}
+.list{max-height:260px;overflow:auto;border:1px solid #20252b;border-radius:10px;padding:6px;background:#0f1418}
+.badge{display:inline-block;border:1px solid #30363d;border-radius:999px;padding:3px 8px;font:700 11px system-ui;background:#13181c;color:#c9c9c9}
+hr{border:0;border-top:1px solid #22282f;margin:10px 0}
+a{color:#ffc4c4}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Feral Dungeon Master — Scene Designer</h1>
+    <div style="display:flex;gap:8px">
+      <a class="btn" href="inventory.html">📦 Inventory</a>
+      <a class="btn" href="hypnosis.html">🌀 Hypnotics</a>
+      <a class="btn" href="index.html">🔄 Refresh</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- Left: Item library (demo) -->
+    <div class="panel">
+      <div class="sectiontitle">Quick Items</div>
+      <div class="small" style="margin-bottom:6px">Click to assign to a selected zone. Mirroring rules may apply.</div>
+      <div class="list" id="quickItems"></div>
+      <hr>
+      <div class="small">From your inventory, pick items in the Inventory page for richer options.</div>
+    </div>
+
+    <!-- Center: Body map -->
+    <div class="panel bodybox">
+      <div class="label">Front &nbsp;|&nbsp; Rear</div>
+      <div class="bodycanvas">
+        <div class="subpanel">
+          <p class="subtitle">Front Zones</p>
+          <div id="zonesFront"></div>
+        </div>
+        <div class="subpanel">
+          <p class="subtitle">Rear Zones</p>
+          <div id="zonesRear"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Current selection -->
+    <div class="panel">
+      <div class="sectiontitle">Selected Zone</div>
+      <div class="small">Click any zone to select, then choose an item.</div>
+      <div id="selZone" class="kpill" style="margin-top:6px">None</div>
+      <hr>
+      <div class="sectiontitle">Assignments</div>
+      <div id="assignments" class="list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Mirroring Panel ===== -->
+<style>
+.fdm-mirror {
+  position: fixed; right: 16px; bottom: 16px; z-index: 9999;
+  background: linear-gradient(180deg,#15181b,#1b1f24);
+  color: #e8e8e8; border: 1px solid #262b31; border-radius: 14px;
+  width: 320px; max-width: calc(100vw - 32px); padding: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.45);
+  font: 600 12px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+.fdm-mirror h3 { margin: 0 0 8px; font: 700 14px/1.2 "Playfair Display", serif; }
+.fdm-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 6px 0; }
+.fdm-kpill { display: inline-flex; gap: 6px; align-items: center; border: 1px solid #2a3036; background:#0f1418; color:#eee;
+  border-radius: 999px; padding: 4px 8px; font-weight: 700; }
+.fdm-muted { color:#a7a7a7; }
+.fdm-mirror hr { border:0; border-top:1px solid #22282f; margin:10px 0; }
+.fdm-mini { display:flex; gap:6px; flex-wrap: wrap; }
+.fdm-mini label { border:1px solid #2a3036; border-radius:999px; padding:3px 8px; }
+.fdm-btn { border:1px solid #262b31; background:#15181b; color:#eee; border-radius:10px; padding:6px 10px; cursor:pointer; font-weight:700; }
+</style>
+
+<div class="fdm-mirror" id="fdmMirrorPanel">
+  <h3>Mirroring</h3>
+  <div class="fdm-row">
+    <label class="fdm-kpill"><input type="checkbox" id="mir_lr" checked> Mirror Left ↔ Right</label>
+    <span class="fdm-muted">limbs, nipples</span>
+  </div>
+  <div class="fdm-row">
+    <label class="fdm-kpill"><input type="checkbox" id="mir_fb"> Mirror Front ↔ Back</label>
+    <span class="fdm-muted">matching back zones</span>
+  </div>
+
+  <hr>
+  <div class="fdm-mini">
+    <label><input type="checkbox" class="mirCat" value="Restraints" checked> Restraints</label>
+    <label><input type="checkbox" class="mirCat" value="Outfits" checked> Outfits</label>
+    <label><input type="checkbox" class="mirCat" value="Furniture"> Furniture</label>
+    <label><input type="checkbox" class="mirCat" value="Machines"> Machines</label>
+    <label><input type="checkbox" class="mirCat" value="Sensations"> Sensations</label>
+    <label><input type="checkbox" class="mirCat" value="E-stim"> E-stim</label>
+  </div>
+
+  <hr>
+  <div class="fdm-row">
+    <button class="fdm-btn" id="mir_save">Save prefs</button>
+    <span class="fdm-muted" id="mir_status"></span>
+  </div>
+</div>
+
+<!-- ===== Analytics shim (local-first) ===== -->
+<script>
+(function(){
+  const KEY='fdm_analytics_queue';
+  function loadQ(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]') }catch(e){ return [] } }
+  function saveQ(q){ localStorage.setItem(KEY, JSON.stringify(q)) }
+  window.fdmTrack = function(event, props={}){
+    const payload = { t: Date.now(), app:'FDM', url: location.pathname, evt: event, props };
+    const q = loadQ(); q.push(payload); saveQ(q);
+    console.log('[FDM]', event, props);
+  };
+  fdmTrack('page_view', { page: 'designer' });
+})();
+</script>
+
+<script>
+/* ===== Minimal scene UI demo ===== */
+const $=id=>document.getElementById(id);
+const ASSIGN_KEY='fdm_assignments';
+let selectedZone=null;
+
+const ZONES_FRONT = [
+  "NECK_FRONT","CHEST","NIPPLE_LEFT","NIPPLE_RIGHT","ABS",
+  "BICEP_LEFT","FOREARM_LEFT","WRIST_LEFT",
+  "BICEP_RIGHT","FOREARM_RIGHT","WRIST_RIGHT",
+  "GROIN","THIGH_FRONT_LEFT","THIGH_FRONT_RIGHT","CALF_FRONT_LEFT","CALF_FRONT_RIGHT"
+];
+const ZONES_REAR = [
+  "NECK_REAR","UPPER_BACK","LOWER_BACK",
+  "BICEP_LEFT","FOREARM_LEFT","WRIST_LEFT",
+  "BICEP_RIGHT","FOREARM_RIGHT","WRIST_RIGHT",
+  "BUTTOCKS","ANUS",
+  "THIGH_BACK_LEFT","THIGH_BACK_RIGHT","CALF_BACK_LEFT","CALF_BACK_RIGHT"
+];
+
+const QUICK = [
+  {id:"locking-collar",name:"Leather Collar (locking)",cat:"Restraints"},
+  {id:"velcuffs",name:"Velcro Cuffs",cat:"Restraints"},
+  {id:"rope-10m",name:"Rope (10m)",cat:"Restraints"},
+  {id:"jacket",name:"Bondage Jacket",cat:"Outfits"},
+  {id:"wax",name:"Wax Play",cat:"Sensations"},
+  {id:"thrustpro",name:"Thrusting Machine Pro",cat:"Machines"}
+];
+
+function renderZones(list, el){
+  el.innerHTML="";
+  list.forEach(z=>{
+    const b=document.createElement('button');
+    b.className='zone';
+    b.textContent=z;
+    b.onclick=()=>{ selectedZone=z; document.querySelectorAll('.zone').forEach(x=>x.classList.remove('active')); b.classList.add('active'); $('selZone').textContent=z; };
+    el.appendChild(b);
+  });
+}
+renderZones(ZONES_FRONT, $('zonesFront'));
+renderZones(ZONES_REAR, $('zonesRear'));
+
+function renderQuick(){
+  const box=$('quickItems'); box.innerHTML="";
+  QUICK.forEach(i=>{
+    const b=document.createElement('button');
+    b.className='kpill'; b.textContent=i.name;
+    b.onclick=()=>{
+      if(!selectedZone){ alert('Select a zone first'); return; }
+      applyMirroredAssignment(selectedZone, i);
+      fdmTrack('assign', { zone:selectedZone, itemId:i.id, cat:i.cat });
+      renderAssignments();
+    };
+    box.appendChild(b);
+  });
+}
+renderQuick();
+
+function getAssign(){
+  try{ return JSON.parse(localStorage.getItem(ASSIGN_KEY)||'{}') }catch(e){return{}}
+}
+function setAssign(s){ localStorage.setItem(ASSIGN_KEY, JSON.stringify(s)) }
+
+function renderAssignments(){
+  const s=getAssign();
+  const box=$('assignments'); box.innerHTML="";
+  const zones = Object.keys(s);
+  if(!zones.length){ box.innerHTML='<div class="small">No assignments yet.</div>'; return; }
+  zones.forEach(z=>{
+    const div=document.createElement('div');
+    div.style.borderBottom='1px solid #20252b'; div.style.padding='6px 0';
+    const items=(s[z]||[]).map(x=>`${x.name} <span class="badge">${x.cat}</span>`).join('<br>');
+    div.innerHTML=`<b>${z}</b><div class="small" style="margin-top:4px">${items||'—'}</div>`;
+    box.appendChild(div);
+  });
+}
+renderAssignments();
+
+/* ===== Mirroring engine (as discussed) ===== */
+const MIRROR_LR = {
+  "BICEP_LEFT":"BICEP_RIGHT","BICEP_RIGHT":"BICEP_LEFT",
+  "FOREARM_LEFT":"FOREARM_RIGHT","FOREARM_RIGHT":"FOREARM_LEFT",
+  "WRIST_LEFT":"WRIST_RIGHT","WRIST_RIGHT":"WRIST_LEFT",
+  "THIGH_FRONT_LEFT":"THIGH_FRONT_RIGHT","THIGH_FRONT_RIGHT":"THIGH_FRONT_LEFT",
+  "THIGH_BACK_LEFT":"THIGH_BACK_RIGHT","THIGH_BACK_RIGHT":"THIGH_BACK_LEFT",
+  "CALF_FRONT_LEFT":"CALF_FRONT_RIGHT","CALF_FRONT_RIGHT":"CALF_FRONT_LEFT",
+  "CALF_BACK_LEFT":"CALF_BACK_RIGHT","CALF_BACK_RIGHT":"CALF_BACK_LEFT",
+  "NIPPLE_LEFT":"NIPPLE_RIGHT","NIPPLE_RIGHT":"NIPPLE_LEFT"
+};
+const MIRROR_FB = {
+  "NECK_FRONT":"NECK_REAR","NECK_REAR":"NECK_FRONT",
+  "CHEST":"UPPER_BACK","UPPER_BACK":"CHEST",
+  "ABS":"LOWER_BACK","LOWER_BACK":"ABS",
+  "THIGH_FRONT_LEFT":"THIGH_BACK_LEFT","THIGH_BACK_LEFT":"THIGH_FRONT_LEFT",
+  "THIGH_FRONT_RIGHT":"THIGH_BACK_RIGHT","THIGH_BACK_RIGHT":"THIGH_FRONT_RIGHT",
+  "CALF_FRONT_LEFT":"CALF_BACK_LEFT","CALF_BACK_LEFT":"CALF_FRONT_LEFT",
+  "CALF_FRONT_RIGHT":"CALF_BACK_RIGHT","CALF_BACK_RIGHT":"CALF_FRONT_RIGHT"
+};
+const MIRROR_PREFS_KEY = "fdm_mirror_prefs";
+
+function loadMirrorPrefs(){
+  try{const p=JSON.parse(localStorage.getItem(MIRROR_PREFS_KEY)||"{}");return Object.assign({lr:true,fb:false,cats:["Restraints","Outfits"]},p)}catch(e){return{lr:true,fb:false,cats:["Restraints","Outfits"]}}
+}
+function saveMirrorPrefs(p){ localStorage.setItem(MIRROR_PREFS_KEY, JSON.stringify(p)); }
+function hydrateMirrorPanel(){
+  const p=loadMirrorPrefs();
+  $('mir_lr').checked=!!p.lr; $('mir_fb').checked=!!p.fb;
+  document.querySelectorAll('.mirCat').forEach(cb=> cb.checked=p.cats.includes(cb.value));
+}
+hydrateMirrorPanel();
+
+$('mir_save').onclick=()=>{
+  const lr=$('mir_lr').checked, fb=$('mir_fb').checked;
+  const cats=[...document.querySelectorAll('.mirCat:checked')].map(cb=>cb.value);
+  saveMirrorPrefs({lr,fb,cats});
+  $('mir_status').textContent='Saved'; setTimeout(()=>$('mir_status').textContent='',1200);
+};
+
+function computeMirrorTargets(zone,prefs){
+  const out=[];
+  if(prefs.lr && MIRROR_LR[zone]) out.push(MIRROR_LR[zone]);
+  if(prefs.fb && MIRROR_FB[zone]) out.push(MIRROR_FB[zone]);
+  if(prefs.lr && prefs.fb && MIRROR_FB[zone] && MIRROR_LR[MIRROR_FB[zone]]) out.push(MIRROR_LR[MIRROR_FB[zone]]);
+  if(prefs.lr && prefs.fb && MIRROR_LR[zone] && MIRROR_FB[MIRROR_LR[zone]]) out.push(MIRROR_FB[MIRROR_LR[zone]]);
+  return [...new Set(out.filter(Boolean))];
+}
+
+window.applyMirroredAssignment=function(zone,item,options={}){
+  const prefs=loadMirrorPrefs();
+  if(prefs.cats && item && item.cat && !prefs.cats.includes(item.cat)){ return safeAssign(zone,item); }
+  const effective={lr:prefs.lr,fb:prefs.fb,...options};
+  const targets=computeMirrorTargets(zone,effective);
+  safeAssign(zone,item);
+  targets.forEach(z=>safeAssign(z,item));
+};
+
+function safeAssign(zone,item){
+  if(typeof window.assignItemToZone==="function"){ return window.assignItemToZone(zone,item); }
+  const s=getAssign();
+  if(!s[zone]) s[zone]=[];
+  if(!s[zone].some(x=>x.id===item.id)) s[zone].push({id:item.id,name:item.name,cat:item.cat});
+  setAssign(s);
+}
+</script>
+</body>
+</html>

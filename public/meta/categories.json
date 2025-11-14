@@ -1,0 +1,85 @@
+{
+  "cats": [
+    "Toys (Anal)","Toys (Oral)","Toys (Urethra)","Toys (Nasal)","Toys (Aural)",
+    "Outfits","Restraints","Furniture","Sensations","E-stim","Machines","All"
+  ],
+  "layers": [
+    "Skin contact","Restraint","Outfit","Furniture","Machine","Accessory",
+    "Penetration (Anal)","Penetration (Oral)","Penetration (Urethral)","Penetration (Nasal)","Penetration (Aural)"
+  ],
+  "anchors": {
+    "default": ["Wrists","Forearms","Elbows","Arms","Ankles","Knees","Thighs","Neck","Chest","Waist","Head"],
+    "Restraints": ["Wrists","Ankles","Elbows","Knees","Neck","Waist","Chest yoke","Thigh cuffs"],
+    "Furniture": ["Table posts","Stirrups","Backboard","Head cradle","Seat anchor","Machine rail","Cross beam"],
+    "E-stim": ["Glans wrap","Shaft band","Nipple pad","Inner thigh pad","Perineum pad","Chest pad","Chastity cage pad","Crusher plates"],
+    "Sensations": ["Armpit","Ribs","Inner thigh","Feet","Neck"],
+    "Machines": ["Harness mount","Seat anchor","Bench rail"],
+    "Toys (Anal)": ["Anal plug base","Harness ring","Suction cup","Vac-u-lock post","Machine carriage clip"],
+    "Toys (Oral)": ["Gag strap","Jaw harness","Tongue bit","Head halter"],
+    "Toys (Urethra)": ["Sound base","Catheter hub","Prince's wand collar","Chastity mount"],
+    "Toys (Nasal)": ["Mask harness","Nostril plug","Poppers manifold"],
+    "Toys (Aural)": ["Ear insert","Canal speaker"],
+    "Outfits": ["Front zip","Rear zip","Crotch snap panel","Penis sheath","Anal sheath","Harness loop","Tail port"]
+  },
+  "hints": {
+    "Toys (Anal)": {"label": "Anal placement","zones":["ANUS","BUTTOCKS"],"note":"Designed to rest in or around the anal opening."},
+    "Toys (Oral)": {"label": "Oral placement","zones":["MOUTH","JAW","TONGUE"],"note":"For gags, tongue pads, oral sleeves."},
+    "Toys (Urethra)": {"label": "Urethral placement","zones":["URETHRA","GROIN"],"note":"Sounds/catheters should include depth guidance."},
+    "Toys (Nasal)": {"label": "Nasal placement","zones":["NOSE","SINUS"],"note":"Mask tubes, nostril plugs, breath-play."},
+    "Toys (Aural)": {"label": "Ear placement","zones":["EAR_LEFT","EAR_RIGHT"],"note":"Ear inserts or sensory plugs."},
+    "Outfits": {"label": "Body coverage","zones":["TORSO_OVERALL_FRONT","TORSO_OVERALL_BACK","ARMS_OVERALL","LEGS_OVERALL"],"note":"Layer order matters."},
+    "Restraints": {"label": "Limb anchors","zones":["WRIST_LEFT","WRIST_RIGHT","ANKLE_LEFT","ANKLE_RIGHT","FOREARM_LEFT","FOREARM_RIGHT"],"note":"List each limb this set can restrain."},
+    "Furniture": {"label": "Furniture tie points","zones":["TORSO_OVERALL_BACK","TORSO_OVERALL_FRONT","NECK_REAR"],"note":"Map where the body touches the frame."},
+    "Sensations": {"label": "Sensation zones","zones":["RIBS","ARMPIT_LEFT","ARMPIT_RIGHT","THIGH_INNER_LEFT","THIGH_INNER_RIGHT"],"note":"Fuel consent tracker with tickle zones."},
+    "E-stim": {"label": "Electrode pads","zones":["NIPPLE_LEFT","NIPPLE_RIGHT","GROIN","ANUS","INNER_THIGH"],"note":"Specify exact pad placement."},
+    "Machines": {"label": "Machine placement","zones":["GROIN","ANUS","TORSO_OVERALL_FRONT"],"note":"Document harness rails and seat anchors."}
+  },
+  "functions": {
+    "Toys (Anal)": ["Penetration","Stretch","Retention"],
+    "Toys (Oral)": ["Gag","Breath control","Tongue play"],
+    "Toys (Urethra)": ["Sounding","Catheter"],
+    "Toys (Nasal)": ["Breath play","Sensory deprivation"],
+    "Toys (Aural)": ["Audio play","Ear plug"],
+    "Outfits": ["Layering","Aesthetic"],
+    "Restraints": ["Immobilize wrists","Immobilize ankles","Harness limbs"],
+    "Furniture": ["Bench support","Table tie-down"],
+    "Sensations": ["Tickle","Temperature","Impact"],
+    "E-stim": ["Conductive pads","Electro penetration"],
+    "Machines": ["Hands-free thrust","Automatic restraint"]
+  },
+  "facets": {
+    "Toys (Anal)": [
+      {"label": "Size class", "options": ["Small","Medium","Large","XL","XXL","Monster"]},
+      {"label": "Interfaces", "options": ["Suction mount","Harness O-ring","Vac-u-lock","Machine yoke"]}
+    ],
+    "Toys (Oral)": [
+      {"label": "Retention", "options": ["Strapless plug","Buckled strap","Full harness"]},
+      {"label": "Profiles", "options": ["Bit","Ball","Breathable gag"]}
+    ],
+    "Toys (Urethra)": [
+      {"label": "Forms", "options": ["Solid sound","Hollow sound","Flexible catheter","E-stim rod"]},
+      {"label": "Support", "options": ["Self-retaining","Manual hold","Chastity integrated"]}
+    ],
+    "Toys (Nasal)": [
+      {"label": "Styles", "options": ["Pig nose hook","Breath-play rig","Poppers bridge"]}
+    ],
+    "Toys (Aural)": [
+      {"label": "Styles", "options": ["Ear plug","Canal speaker","Bone conduction"]}
+    ],
+    "Outfits": [
+      {"label": "Families", "options": ["Latex catsuit","ABDL onesie","Petsuit","Spandex singlet","Chastity shorts"]},
+      {"label": "Access", "options": ["Front zip","Rear zip","Crotch flap","Penis sheath","Anal sheath"]}
+    ],
+    "Restraints": [
+      {"label": "Structures", "options": ["Bitchsuit","Bondage board","Bed straps","Segufix","Sling","Cage/Kennel"]},
+      {"label": "Mounting", "options": ["Standalone","Furniture integrated","Ceiling rig"]}
+    ],
+    "E-stim": [
+      {"label": "Endpoints", "options": ["Crusher plates","Chastity cage pad","Butt-plug insert","Penis lasso","Adhesive pad"]}
+    ],
+    "Furniture": [
+      {"label": "Frames", "options": ["Sex bench","Spanking bench","Andrews cross","Sling frame","Bondage board"]},
+      {"label": "Integration", "options": ["Machine mount","Restraint ready","Modular rails"]}
+    ]
+  }
+}
