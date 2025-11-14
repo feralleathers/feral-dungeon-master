@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feral Hypnotics — Therapy Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1113;--p1:#15181b;--p2:#1b1f24;--txt:#e8e8e8;--mut:#a7a7a7;--line:#262b31;--accent:#c73a3a}
+*{box-sizing:border-box} body{margin:0;background:#0f1113;color:var(--txt);font-family:"Playfair Display",serif}
+.wrap{max-width:1100px;margin:0 auto;padding:18px}
+h1{margin:0 0 8px;font-size:26px}
+.top{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.btn{border:1px solid var(--line);background:#15181b;color:#eee;border-radius:10px;padding:8px 12px;cursor:pointer;font:700 12px/1 system-ui}
+.btn.red{border-color:#6f1a1a;background:#c73a3a}
+.card{background:linear-gradient(180deg,var(--p1),var(--p2));border:1px solid var(--line);border-radius:14px;padding:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inp,select,textarea{width:100%;border:1px solid #2a3036;background:#0f1418;color:#eee;border-radius:10px;padding:8px 10px;font:600 12px system-ui}
+.small{color:#cfcfcf;font:600 12px/1.35 system-ui}
+.row{display:flex;gap:8px;align-items:center}
+.badge{display:inline-block;border:1px solid #30363d;border-radius:999px;padding:3px 8px;font:700 11px system-ui;background:#13181c;color:#c9c9c9}
+hr{border:0;border-top:1px solid #22282f;margin:10px 0}
+.preview{min-height:140px;border:1px dashed #30363d;border-radius:12px;padding:10px;overflow:auto}
+.kpill{display:inline-flex;gap:6px;align-items:center;border:1px solid #2a3036;background:#0f1418;color:#eee;border-radius:999px;padding:4px 8px;font:700 11px system-ui}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Feral Hypnotics — Therapy Tool</h1>
+    <div style="display:flex;gap:8px">
+      <a class="btn" href="index.html">🎛 Scene Designer</a>
+      <a class="btn" href="inventory.html">📦 Inventory</a>
+      <a class="btn" href="hypnosis.html">🔄 Refresh</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- Left: Controls -->
+    <div class="card">
+      <div class="row">
+        <div style="flex:1">
+          <div class="small">Word list (comma or newline)</div>
+          <textarea id="words" class="inp" rows="6" placeholder="calm, breathe, soften, focus, surrender"></textarea>
+        </div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <div style="flex:1">
+          <div class="small">Repetitions per word</div>
+          <input id="reps" type="number" min="1" max="50" value="5" class="inp">
+        </div>
+        <div style="flex:1">
+          <div class="small">Pace (approx. WPM)</div>
+          <input id="wpm" type="number" min="40" max="220" value="120" class="inp">
+        </div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <div style="flex:1">
+          <div class="small">Loop length (minutes, 0 = infinite)</div>
+          <input id="minutes" type="number" min="0" max="180" value="0" class="inp">
+        </div>
+        <div style="flex:1">
+          <div class="small">Voice</div>
+          <select id="voice" class="inp"></select>
+        </div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <label class="kpill"><input type="checkbox" id="fade" checked> soft fade in/out</label>
+        <label class="kpill"><input type="checkbox" id="hum"> candle hum</label>
+        <label class="kpill"><input type="checkbox" id="shuffle"> shuffle words</label>
+      </div>
+      <hr>
+      <div class="row">
+        <button class="btn red" id="start">Start</button>
+        <button class="btn" id="stop">Stop</button>
+        <button class="btn" id="save">Save preset</button>
+        <select id="presets" class="inp" style="max-width:220px"></select>
+      </div>
+      <div class="small" style="margin-top:6px">Tip: use Inventory quick-add below to pull words from your gear list.</div>
+    </div>
+
+    <!-- Right: Preview & inventory quick-add -->
+    <div class="card">
+      <div class="small">Planned sequence</div>
+      <div id="preview" class="preview"></div>
+      <hr>
+      <div class="row">
+        <div style="flex:1">
+          <div class="small">Inventory quick-add</div>
+          <select id="inv" class="inp"></select>
+        </div>
+        <button class="btn" id="addInv">Add to word list</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Analytics shim -->
+<script>
+(function(){
+  const KEY='fdm_analytics_queue';
+  function loadQ(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]') }catch(e){ return [] } }
+  function saveQ(q){ localStorage.setItem(KEY, JSON.stringify(q)) }
+  window.fdmTrack = function(event, props={}){
+    const payload = { t: Date.now(), app:'FDM', url: location.pathname, evt: event, props };
+    const q = loadQ(); q.push(payload); saveQ(q);
+    console.log('[FDM]', event, props);
+  };
+  fdmTrack('page_view', { page: 'hypnosis' });
+})();
+</script>
+
+<script>
+/* ===== Hypnosis core (SpeechSynthesis) ===== */
+const $=id=>document.getElementById(id);
+const LKEY='fdm_hyp_presets';
+const INVKEY='fdm_inventory';
+
+let voices=[], playTimer=null, humOsc=null, ctx=null, stopping=false;
+
+function loadPresets(){ try{ return JSON.parse(localStorage.getItem(LKEY)||'[]')}catch(e){return[]} }
+function savePresets(x){ localStorage.setItem(LKEY, JSON.stringify(x)) }
+function loadInventory(){ try{ const x=JSON.parse(localStorage.getItem(INVKEY)||'[]'); return Array.isArray(x)?x:[] }catch(e){return[]} }
+
+function hydrateVoices(){
+  voices = window.speechSynthesis.getVoices().filter(v=>/en|US|GB|AU|male|female/i.test(v.name+v.lang));
+  const sel=$('voice'); sel.innerHTML=voices.map((v,i)=>`<option value="${i}">${v.name} (${v.lang})</option>`).join('');
+}
+if ('speechSynthesis' in window) {
+  speechSynthesis.onvoiceschanged = hydrateVoices; hydrateVoices();
+}
+
+function seqFromWords(){
+  const raw = $('words').value
+    .split(/[\n,]/).map(s=>s.trim()).filter(Boolean);
+  const reps = Math.max(1, +$('reps').value||5);
+  let list = raw.flatMap(w=> Array.from({length:reps},()=>w));
+  if ($('shuffle').checked) list = list.sort(()=>Math.random()-0.5);
+  $('preview').textContent = list.join('  •  ');
+  return list;
+}
+function calcRate(wpm){ return Math.min(2.0, Math.max(0.5, (wpm||120)/120)); }
+
+function doFadeIn(){ document.body.animate([{opacity:0.85},{opacity:1}], {duration:600, fill:'both'}); }
+function doFadeOut(){ document.body.animate([{opacity:1},{opacity:0.85}], {duration:450, fill:'both'}); }
+
+function startHum(){
+  if (!$('hum').checked) return;
+  try{
+    ctx = ctx || new (window.AudioContext||window.webkitAudioContext)();
+    humOsc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    humOsc.type='sine'; humOsc.frequency.value = 90;
+    gain.gain.value = 0.02;
+    humOsc.connect(gain).connect(ctx.destination);
+    humOsc.start();
+  }catch(e){}
+}
+function stopHum(){ try{ humOsc && humOsc.stop(0); humOsc=null }catch(e){} }
+
+function speakSequence(list){
+  const idxVoice = +$('voice').value || 0;
+  const v = voices[idxVoice] || voices[0];
+  const rate = calcRate(+$('wpm').value||120);
+  const minutes = Math.max(0, +$('minutes').value||0);
+  const deadline = minutes ? Date.now()+minutes*60*1000 : null;
+
+  stopping=false;
+  const synth = window.speechSynthesis;
+  let i=0;
+
+  function speakNext(){
+    if (stopping) return;
+    if (deadline && Date.now()>=deadline) { stopAll(); return; }
+    const text = list[i % list.length];
+    const u = new SpeechSynthesisUtterance(text);
+    if (v) { u.voice = v; }
+    u.rate = rate;
+    u.onend = ()=>{
+      if (stopping) return;
+      playTimer = setTimeout(speakNext, 80);
+    };
+    synth.speak(u);
+    i++;
+  }
+  if ($('fade').checked) doFadeIn();
+  startHum();
+  fdmTrack('hyp_start', { wpm:+$('wpm').value||120, reps:+$('reps').value||5, minutes:+$('minutes').value||0, words:list.length });
+  speakNext();
+}
+
+function stopAll(){
+  stopping=true;
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  if (playTimer) { clearTimeout(playTimer); playTimer=null; }
+  stopHum();
+  if ($('fade').checked) doFadeOut();
+  fdmTrack('hyp_stop', {});
+}
+
+function savePreset(){
+  const presets = loadPresets();
+  const name = prompt('Preset name?');
+  if (!name) return;
+  presets.push({
+    name,
+    words: $('words').value,
+    reps: +$('reps').value||5,
+    wpm: +$('wpm').value||120,
+    minutes: +$('minutes').value||0,
+    fade: $('fade').checked,
+    hum: $('hum').checked,
+    shuffle: $('shuffle').checked
+  });
+  savePresets(presets);
+  hydratePresets();
+  fdmTrack('hyp_preset_save', { name });
+}
+function hydratePresets(){
+  const sel=$('presets');
+  const p=loadPresets();
+  sel.innerHTML = `<option value="">Load preset…</option>` + p.map((x,i)=>`<option value="${i}">${x.name}</option>`).join('');
+  sel.onchange = ()=>{
+    const i = +sel.value; if (isNaN(i)) return;
+    const x = p[i];
+    $('words').value = x.words||'';
+    $('reps').value = x.reps||5;
+    $('wpm').value = x.wpm||120;
+    $('minutes').value = x.minutes||0;
+    $('fade').checked = !!x.fade; $('hum').checked = !!x.hum; $('shuffle').checked = !!x.shuffle;
+    seqFromWords();
+    fdmTrack('hyp_preset_load', { name: x.name });
+  };
+}
+hydratePresets();
+
+function hydrateInventoryQuickAdd(){
+  const inv = loadInventory();
+  const sel = $('inv');
+  sel.innerHTML = `<option value="">Choose an item…</option>` + inv.map(i=>`<option value="${i.name}">${i.name} — ${i.cat}</option>`).join('');
+  $('addInv').onclick = ()=>{
+    const v = sel.value; if (!v) return;
+    const cur = $('words').value.trim();
+    $('words').value = (cur ? cur + '\n' : '') + v;
+    seqFromWords();
+    fdmTrack('hyp_add_inv_word', { name:v });
+  };
+}
+hydrateInventoryQuickAdd();
+
+// Wire UI
+$('words').oninput = seqFromWords;
+['reps','wpm','minutes','shuffle'].forEach(id=> $(id).onchange = seqFromWords);
+$('start').onclick = ()=> speakSequence(seqFromWords());
+$('stop').onclick  = stopAll;
+$('save').onclick  = savePreset;
+
+// initial preview
+seqFromWords();
+</script>
+</body>
+</html>
