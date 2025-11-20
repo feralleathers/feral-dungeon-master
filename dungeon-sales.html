@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Feral Dungeon Suite — Pricing & Features</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f5f6f8; --text:#0c0d11; --muted:#5b6371; --accent:#c73a3a; --accent-dark:#861f30; --panel:#fff; --line:#dfe3ea; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; }
+    header { padding:28px 22px 10px; text-align:center; }
+    h1 { font:700 40px/1.2 'Playfair Display',serif; margin:8px 0; }
+    p.lead { margin:0 auto 24px; max-width:640px; color:var(--muted); font-size:16px; }
+    .cta-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .btn { border:none; border-radius:999px; padding:14px 24px; font:600 14px/1 'Inter'; cursor:pointer; text-decoration:none; }
+    .btn.accent { background:var(--accent); color:#fff; }
+    .btn.secondary { background:#fff; color:var(--accent-dark); border:1px solid var(--line); }
+    main { max-width:1100px; margin:0 auto; padding:30px 20px 80px; display:flex; flex-direction:column; gap:32px; }
+    .feature-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .feature { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:18px; }
+    .feature h3 { margin:0 0 8px; font-size:17px; }
+    .feature p { margin:0; color:var(--muted); font-size:13px; line-height:1.6; }
+    .pricing { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
+    .price-card { background:var(--panel); border:2px solid var(--line); border-radius:20px; padding:22px; display:flex; flex-direction:column; gap:14px; }
+    .price-card.highlight { border-color:var(--accent); box-shadow:0 20px 50px rgba(199,58,58,0.15); }
+    .price { font:700 36px 'Playfair Display',serif; }
+    ul { margin:0; padding-left:18px; color:var(--muted); font-size:14px; line-height:1.6; }
+    footer { text-align:center; color:var(--muted); font-size:12px; padding:20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="font:600 14px/1 'Inter'; text-transform:uppercase; letter-spacing:0.2em; color:var(--muted);">Feral Leathers</div>
+    <h1>Feral Dungeon Suite</h1>
+    <p class="lead">Local-first dominance OS for scene designers, hypnosis poets, and inventory keepers. Hardened profiles, safety intelligence, and commerce loops—synced through Cloudflare’s zero-trust edge.</p>
+    <div class="cta-row">
+      <a class="btn accent" href="#subscribe">Start $10/mo subscription</a>
+      <a class="btn secondary" href="#lifetime">Own it lifetime for $200</a>
+      <a class="btn secondary" href="landing.html">Preview Mini Dungeon</a>
+    </div>
+    <p style="margin-top:12px;color:var(--muted);font-size:12px;">Need to check out on <strong>FeralLeathers.com</strong>? <a href="https://www.feralleathers.com/dungeon">Use the GoDaddy-hosted mirror</a>.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2 style="font:700 26px 'Playfair Display',serif; margin-bottom:12px;">Capabilities by Phase</h2>
+      <div class="feature-grid">
+        <article class="feature">
+          <h3>Phase 1 · Core Foundations</h3>
+          <p>Layer stacking, conflict warnings, synced inventory loop, and hypnotic poetry planner tuned with persona cues.</p>
+        </article>
+        <article class="feature">
+          <h3>Phase 2 · Safety & Scene Intelligence</h3>
+          <p>Scene Builder 2.0, breath risk overlays, intensity trackers, and procedural warnings tied to recommended gear.</p>
+        </article>
+        <article class="feature">
+          <h3>Phase 3 · Profiles & Cloud Sync</h3>
+          <p>Encrypted JSON profiles backed by Cloudflare Workers + KV, dom/sub sharing, negotiation alignment, and analytics.</p>
+        </article>
+        <article class="feature">
+          <h3>Phase 4/5 · Commerce & Ecosystem</h3>
+          <p>Affiliate bundles, Feral Leathers gear upgrades, sharable scene packs, partner playback, and AI-assisted scripts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="subscribe" class="pricing">
+      <article class="price-card highlight">
+        <div>
+          <div class="price">$10<span style="font:400 18px 'Inter'; color:var(--muted);"> / month</span></div>
+          <p style="margin:0;color:var(--muted);">Cancel anytime. Includes every future premium feature during active subscription.</p>
+        </div>
+        <ul>
+          <li>Access to all apps + future modules</li>
+          <li>Cloudflare Worker sync & encrypted storage</li>
+          <li>Premium analytics + safety engines</li>
+          <li>Community + commerce integrations</li>
+        </ul>
+        <a class="btn accent" style="justify-content:center;text-align:center;" href="https://checkout.feralleathers.com/subscription">Subscribe now</a>
+      </article>
+
+      <article id="lifetime" class="price-card">
+        <div>
+          <div class="price">$200<span style="font:400 18px 'Inter'; color:var(--muted);"> lifetime</span></div>
+          <p style="margin:0;color:var(--muted);">One purchase. All premium drops forever plus priority access to partner features.</p>
+        </div>
+        <ul>
+          <li>Perpetual premium unlock</li>
+          <li>Priority support + roadmap voting</li>
+          <li>Device + partner mode allowances</li>
+          <li>Special edition Feral Leathers merch</li>
+        </ul>
+        <a class="btn secondary" style="justify-content:center;text-align:center;border-color:var(--accent);color:var(--accent-dark);" href="https://checkout.feralleathers.com/lifetime">Buy lifetime access</a>
+      </article>
+    </section>
+
+    <section>
+      <h2 style="font:700 24px 'Playfair Display',serif; margin:10px 0;">FAQ</h2>
+      <div class="feature-grid">
+        <article class="feature">
+          <h3>How do I sign in?</h3>
+          <p>Head to <a href="account.html">FeralLeathers.com/account</a> for passwordless login. We issue a Cloudflare Access token that unlocks the dungeon edge.</p>
+        </article>
+        <article class="feature">
+          <h3>Can I test it first?</h3>
+          <p>Yes. Launch the Mini Dungeon for three categories, then upgrade when you’re ready.</p>
+        </article>
+        <article class="feature">
+          <h3>Is my data secure?</h3>
+          <p>Profiles stay local-first, encrypted with AES-GCM, and only sync through Workers over WAF-guarded endpoints.</p>
+        </article>
+        <article class="feature">
+          <h3>Refunds?</h3>
+          <p>Monthly subscriptions cancel anytime. Lifetime purchases include a 14-day money-back guarantee.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © Feral Leathers · Secure commerce via Cloudflare + GoDaddy · Need help? Email dungeon@feralleathers.com
+  </footer>
+</body>
+</html>

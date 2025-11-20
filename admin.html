@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Feral Dungeon Master — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#07090f;
+      --panel:#0f1217;
+      --line:#1f232a;
+      --accent:#c73a3a;
+      --text:#f5f1ec;
+      --muted:#a7a9b3;
+      --shadow:0 20px 45px rgba(0,0,0,.75);
+      --grid-gap:18px;
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:radial-gradient(circle at top,#0b1117,#040507 60%);
+      color:var(--text);
+      font-family:'Inter',system-ui,sans-serif;
+    }
+
+    .page{
+      max-width:1200px;
+      margin:0 auto;
+      padding:24px 24px 48px;
+    }
+
+    .hero{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:26px;
+      background:linear-gradient(180deg,var(--panel),#0b0f14 60%);
+      box-shadow:var(--shadow);
+      margin-bottom:26px;
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+      font:normal 42px/1.1 'Playfair Display',serif;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:660px;
+      font-size:16px;
+    }
+
+    .nav-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .nav-links a{
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      font:600 12px/1 'Inter',sans-serif;
+      text-decoration:none;
+      color:var(--muted);
+      background:#0b0f14;
+    }
+
+    .nav-links a.active{
+      border-color:var(--accent);
+      color:#fff;
+      background:rgba(199,58,58,.16);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:var(--grid-gap);
+    }
+
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .panel h2{
+      margin:0 0 4px;
+      font:700 22px/1.2 'Playfair Display',serif;
+    }
+
+    .panel p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    input,select,textarea{
+      width:100%;
+      border-radius:10px;
+      border:1px solid #20252d;
+      background:#0b0f14;
+      color:#fff;
+      font:600 14px system-ui;
+      padding:10px 12px;
+      outline:none;
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:90px;
+    }
+
+    .btn{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px 16px;
+      font:700 13px/1 'Inter',sans-serif;
+      background:#161b21;
+      color:#fff;
+      cursor:pointer;
+      transition:border-color .2s ease, background .2s ease;
+    }
+
+    .btn.primary{
+      border-color:var(--accent);
+      background:linear-gradient(145deg,#591919,#c73a3a);
+    }
+
+    .btn.secondary{
+      background:#0a0d12;
+    }
+
+    .btn-sm{
+      padding:6px 10px;
+      font-size:11px;
+    }
+
+    .admin-panel{
+      grid-column:1 / -1;
+      border-radius:18px;
+      padding:24px;
+      background:#0c0f14;
+      box-shadow:0 20px 40px rgba(0,0,0,.45);
+    }
+
+    .admin-actions{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .admin-status{
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.1);
+      background:#080a0f;
+      color:#cfd4dd;
+      font:600 12px 'Inter',sans-serif;
+    }
+
+    .admin-status[data-tone="error"]{
+      border-color:#f18484;
+      color:#f18484;
+    }
+
+    .admin-status[data-tone="loading"]{
+      border-color:#f6d365;
+      color:#f6d365;
+    }
+
+    .admin-status[data-tone="success"]{
+      border-color:#75e6b8;
+      color:#75e6b8;
+    }
+
+    .admin-summary{
+      border:1px solid #1f232a;
+      border-radius:12px;
+      padding:12px;
+      background:#08090f;
+      font:500 13px 'Inter',sans-serif;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-bottom:12px;
+    }
+
+    .admin-summary-row{
+      display:flex;
+      justify-content:space-between;
+      gap:6px;
+      font-size:13px;
+    }
+
+    .admin-summary-row span{
+      color:#9ea1b0;
+      font-size:11px;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+    }
+
+    .admin-list-controls{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font:600 12px 'Inter',sans-serif;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:#9ea1b0;
+      margin-bottom:6px;
+    }
+
+    .admin-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .list{
+      border-radius:12px;
+      background:#0b0f14;
+      border:1px solid #1f232a;
+      padding:12px;
+      min-height:140px;
+      max-height:320px;
+      overflow:auto;
+    }
+
+    .admin-profile-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #13181f;
+      padding:10px 0;
+    }
+
+    .admin-profile-line:last-child{
+      border-bottom:none;
+    }
+
+    .admin-profile-meta strong{
+      display:block;
+      font:600 14px 'Playfair Display',serif;
+    }
+
+    .admin-profile-meta .metadata{
+      color:#9ea1b0;
+      font-size:11px;
+    }
+
+    .admin-profile-line button{
+      padding:6px 10px;
+      font-size:11px;
+    }
+
+    textarea#adminProfileJson{
+      min-height:160px;
+      font-family:'JetBrains Mono',Consolas,'Liberation Mono',monospace;
+      font-size:12px;
+      background:#05060a;
+      color:#d1d6e0;
+    }
+
+    @media (max-width:640px){
+      .hero{
+        padding:18px;
+      }
+      .admin-actions{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <h1>Admin</h1>
+      <p>Control every profile, inspect remote data, and launch the studios where the magic happens.</p>
+      <div class="nav-links">
+        <a href="index.html">Scene Designer</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="hypnosis.html">Hypnotics</a>
+        <a href="profiles.html">Profiles</a>
+        <a href="admin.html" class="active">Admin</a>
+      </div>
+    </header>
+    <main class="grid">
+      <section class="panel admin-panel">
+        <h2>Admin dashboard</h2>
+        <p class="metadata">Review profiles, load their JSON, and sync data from the Cloudflare worker.</p>
+        <div class="admin-actions">
+          <label>
+            Profile ID
+            <input type="text" data-admin-profile-input placeholder="Enter profileId">
+          </label>
+          <button type="button" class="btn secondary" id="adminLoadProfile">Load profile</button>
+          <button type="button" class="btn secondary" id="adminPullRemote">Pull remote</button>
+          <button type="button" class="btn primary" id="adminPushLocal">Avoid pushing (use Profiles)</button>
+        </div>
+        <div class="admin-status" id="adminStatus">Admin ready.</div>
+        <div class="admin-summary" id="adminProfileSummary">
+          <div class="admin-summary-row">
+            <span>Profile</span>
+            <strong>Not loaded</strong>
+          </div>
+        </div>
+        <div class="admin-list-controls">
+          <span>Stored profiles</span>
+          <button type="button" class="btn secondary" id="adminRefreshList">Refresh list</button>
+        </div>
+        <div class="list" id="adminProfileList">
+          <p class="metadata small">Click refresh to display the stored profiles.</p>
+        </div>
+        <label>
+          Profile JSON
+          <textarea id="adminProfileJson" readonly placeholder="Loaded payload will appear here."></textarea>
+        </label>
+        <div class="admin-links">
+          <a class="btn primary" href="phrase-studio.html" target="_blank" rel="noopener">Phrase Studio</a>
+          <a class="btn secondary" href="hypnosis.html" target="_blank" rel="noopener">Hypnotic Toolkit</a>
+          <a class="btn secondary" href="profiles.html" target="_blank" rel="noopener">Profiles</a>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="js/admin-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+import {
+  KINK_PHRASES,
+  KINK_TOPIC_OPTIONS,
+  DEFAULT_KINK_PHRASES,
+  setPhraseOverride,
+  resetPhraseOverride,
+  applyPhraseOverrides
+} from './library.js';
+
+const topicListEl = document.getElementById('psTopicList');
+const optionListEl = document.getElementById('psOptionList');
+const lineEditorEl = document.getElementById('psLineEditor');
+const previewEl = document.getElementById('psPreview');
+const statusEl = document.getElementById('psStatus');
+const btnAdd = document.getElementById('psAddLine');
+const btnReset = document.getElementById('psResetLines');
+const btnSave = document.getElementById('psSaveLines');
+const btnPlay = document.getElementById('psPlayLines');
+const btnExport = document.getElementById('phraseStudioExport');
+const requestFeedEl = document.getElementById('psRequestFeed');
+
+applyPhraseOverrides();
+
+const topics = KINK_TOPIC_OPTIONS;
+let activeTopicId = topics[0]?.id || null;
+let activeOptionKey = topics[0]?.options?.[0]?.key || null;
+let workingLines = [];
+const REQUEST_STORAGE_KEY = 'fdm_phrase_studio_requests.v1';
+
+function setStatus(text) {
+  if (statusEl) statusEl.textContent = text;
+}
+
+function renderTopics() {
+  if (!topicListEl) return;
+  topicListEl.innerHTML = topics.map(topic => `
+    <button class="topicBtn ${topic.id === activeTopicId ? 'active' : ''}" data-topic="${topic.id}">
+      ${topic.label}
+    </button>
+  `).join('');
+}
+
+function renderOptions() {
+  if (!optionListEl) return;
+  const topic = topics.find(t => t.id === activeTopicId);
+  if (!topic) {
+    optionListEl.innerHTML = '<p class="small">Pick a topic first.</p>';
+    return;
+  }
+  optionListEl.innerHTML = (topic.options || []).map(opt => `
+    <button class="optionPill ${opt.key === activeOptionKey ? 'active' : ''}" data-option="${opt.key}">
+      ${opt.label}
+    </button>
+  `).join('');
+}
+
+function renderLines() {
+  if (!lineEditorEl) return;
+  const library = KINK_PHRASES[activeOptionKey];
+  if (!library) {
+    lineEditorEl.innerHTML = '<p class="small">Select a sub-option to edit its phrases.</p>';
+    previewEl.innerHTML = '<em>No preview.</em>';
+    workingLines = [];
+    return;
+  }
+  if (!workingLines.length) workingLines = [...library.phrases];
+  if (!workingLines.length) workingLines = [''];
+  lineEditorEl.innerHTML = workingLines.map((line, idx) => `
+    <div class="editorLine" data-index="${idx}">
+      <textarea rows="2">${line.replace(/</g, '&lt;')}</textarea>
+      <button class="btn ghost" data-remove="${idx}">✕</button>
+    </div>
+  `).join('');
+  previewEl.innerHTML = `<ol>${workingLines.map(line => `<li>${line}</li>`).join('')}</ol>`;
+  setStatus(`Editing ${library.group} • ${library.label}`);
+  btnPlay.disabled = workingLines.every(line => !line.trim());
+}
+
+function resetLines() {
+  if (!activeOptionKey) return;
+  resetPhraseOverride(activeOptionKey);
+  const defaults = DEFAULT_KINK_PHRASES[activeOptionKey];
+  workingLines = defaults ? [...defaults.phrases] : [];
+  renderLines();
+  setStatus('Reverted to default phrases.');
+}
+
+function saveLines() {
+  if (!activeOptionKey) return;
+  const cleaned = workingLines.map(line => line.trim()).filter(Boolean);
+  if (!cleaned.length) {
+    alert('Add at least one phrase before saving.');
+    return;
+  }
+  setPhraseOverride(activeOptionKey, cleaned);
+  applyPhraseOverrides();
+  workingLines = [...cleaned];
+  renderLines();
+  setStatus('Saved override. Hypnosis will load it automatically.');
+}
+
+function playLines() {
+  if (!window.speechSynthesis || !workingLines.length) return;
+  const utter = new SpeechSynthesisUtterance(workingLines.join('. '));
+  window.speechSynthesis.speak(utter);
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(KINK_PHRASES, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'phrase-library.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+topicListEl?.addEventListener('click', evt => {
+  const btn = evt.target.closest('[data-topic]');
+  if (!btn) return;
+  activeTopicId = btn.dataset.topic;
+  const topic = topics.find(t => t.id === activeTopicId);
+  activeOptionKey = topic?.options?.[0]?.key || null;
+  workingLines = [];
+  renderTopics();
+  renderOptions();
+  renderLines();
+});
+
+optionListEl?.addEventListener('click', evt => {
+  const btn = evt.target.closest('[data-option]');
+  if (!btn) return;
+  activeOptionKey = btn.dataset.option;
+  workingLines = [];
+  renderOptions();
+  renderLines();
+});
+
+lineEditorEl?.addEventListener('input', evt => {
+  const row = evt.target.closest('.editorLine');
+  if (!row) return;
+  const idx = Number(row.dataset.index);
+  if (Number.isNaN(idx)) return;
+  workingLines[idx] = evt.target.value;
+  previewEl.innerHTML = `<ol>${workingLines.map(line => `<li>${line}</li>`).join('')}</ol>`;
+});
+
+lineEditorEl?.addEventListener('click', evt => {
+  if (!evt.target.matches('[data-remove]')) return;
+  const idx = Number(evt.target.dataset.remove);
+  if (Number.isNaN(idx)) return;
+  workingLines.splice(idx, 1);
+  renderLines();
+});
+
+btnAdd?.addEventListener('click', () => {
+  workingLines.push('');
+  renderLines();
+});
+btnReset?.addEventListener('click', resetLines);
+btnSave?.addEventListener('click', saveLines);
+btnPlay?.addEventListener('click', playLines);
+btnExport?.addEventListener('click', exportJSON);
+
+renderTopics();
+renderOptions();
+renderLines();
+renderRequestFeed();
+
+function renderRequestFeed() {
+  if (!requestFeedEl) return;
+  const entries = loadRequestEntries();
+  if (!entries.length) {
+    requestFeedEl.innerHTML = `
+      <div class="requestCard muted">
+        <header>
+          <span>Awaiting submissions</span>
+          <span class="requestMeta">Premium queue</span>
+        </header>
+        <p class="small">When trancers send in kink wishlists from the Ritual Builder, they’ll appear here for editing.</p>
+      </div>
+    `;
+    return;
+  }
+  requestFeedEl.innerHTML = entries
+    .slice()
+    .reverse()
+    .map(entry => renderRequestCard(entry))
+    .join('');
+}
+
+function renderRequestCard(entry) {
+  const category = entry.category ? escapeHtml(entry.category) : 'Untitled request';
+  const pieces = [];
+  if (entry.subs) pieces.push(`<p class="small"><strong>Sub-scenes</strong><br>${formatMultiline(entry.subs)}</p>`);
+  if (entry.phrases) pieces.push(`<p class="small"><strong>Phrase sparks</strong><br>${formatMultiline(entry.phrases)}</p>`);
+  if (entry.notes) pieces.push(`<p class="small"><strong>Notes</strong><br>${formatMultiline(entry.notes)}</p>`);
+  if (!pieces.length) pieces.push('<p class="small muted">No extra details provided.</p>');
+  return `
+    <div class="requestCard">
+      <header>
+        <span>${category}</span>
+        <span class="requestMeta">${formatDate(entry.createdAt)}</span>
+      </header>
+      ${pieces.join('')}
+    </div>
+  `;
+}
+
+function loadRequestEntries() {
+  if (!canUseLocalStorage()) return [];
+  try {
+    const raw = localStorage.getItem(REQUEST_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    console.warn('Unable to read custom category requests', err);
+    return [];
+  }
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function formatMultiline(str) {
+  return escapeHtml(str).replace(/\n/g, '<br>');
+}
+
+function formatDate(value) {
+  try {
+    const date = value ? new Date(value) : new Date();
+    return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  } catch {
+    return 'New';
+  }
+}
+
+function canUseLocalStorage() {
+  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://dungeon.feralleathers.com/phrase-studio -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feral Hypnotics — Phrase Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/"><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Feral Hypnotics — Phrase Studio_files/css2" rel="stylesheet">
+<style>
+:root{--bg:#0f1113;--pane:#13171d;--pane2:#161b22;--line:#1f252d;--accent:#c73a3a;--txt:#f2f2f2;--mut:#a7a7a7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Playfair Display',serif}
+.wrap{max-width:1200px;margin:0 auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.btn{border:1px solid var(--line);background:var(--pane);color:var(--txt);border-radius:10px;padding:8px 16px;font:700 12px/1 system-ui;cursor:pointer}
+.btn.red{background:var(--accent);border-color:#6f1a1a;color:#fff}
+.grid{display:grid;grid-template-columns:260px 1fr 320px;gap:14px}
+.panel{border:1px solid var(--line);border-radius:14px;padding:12px;background:linear-gradient(180deg,var(--pane),var(--pane2));min-height:200px}
+.sectiontitle{font:700 13px/1.3 system-ui;margin:0 0 8px;color:#cfcfcf}
+.small{color:var(--mut);font:600 12px/1.4 system-ui}
+.topicList{max-height:70vh;overflow:auto;display:flex;flex-direction:column;gap:6px}
+.topicBtn{border:1px solid var(--line);border-radius:10px;padding:8px;background:#10151c;color:var(--txt);font:700 12px/1.3 system-ui;text-align:left;cursor:pointer}
+.topicBtn.active{border-color:var(--accent);background:#1a1011}
+.optionList{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.optionPill{border:1px solid var(--line);border-radius:20px;padding:4px 10px;font:700 11px system-ui;cursor:pointer}
+.optionPill.active{border-color:var(--accent);background:#1a1011}
+.editorLines{display:flex;flex-direction:column;gap:10px;max-height:65vh;overflow:auto;margin-top:8px}
+.editorLine{border:1px solid var(--line);border-radius:12px;padding:8px;background:#0f141a;display:flex;gap:8px;align-items:flex-start}
+.editorLine textarea{flex:1;border:1px solid #272d35;background:#080b11;color:var(--txt);border-radius:10px;padding:8px;font:600 12px/1.5 'Playfair Display',serif}
+.editorLine button{align-self:flex-start}
+.previewBox{border:1px dashed var(--line);border-radius:12px;padding:10px;background:#0f1319;max-height:65vh;overflow:auto}
+.previewBox li{margin-bottom:6px;font:600 12px/1.4 'Playfair Display',serif}
+.status{font:600 12px/1.4 system-ui;color:#9ad1c9;margin-top:10px}
+.tutorialCard{border:1px solid #1f242a;border-radius:12px;padding:10px;background:#0f1317;margin:12px 0}
+.tutorialCard summary{cursor:pointer;font:700 12px/1.3 system-ui;color:#f5dede;display:flex;align-items:center;gap:6px}
+.tutorialCard summary::marker{color:#c73a3a}
+.tutorialSteps{margin:8px 0 0;padding-left:18px;font:600 12px/1.4 system-ui;color:#cfcfcf}
+.tutorialSteps li{margin-bottom:4px}
+.requestWrap{margin-top:18px}
+.requestFeed{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.requestCard{border:1px solid var(--line);border-radius:12px;padding:10px;background:#0f141a}
+.requestCard header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font:700 12px/1.2 system-ui}
+.requestMeta{font:600 11px/1.1 system-ui;color:#8ea1b7}
+.muted{color:#748089}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1 style="margin:0;font-size:24px">Phrase Studio</h1>
+      <p class="small" style="margin:4px 0 0">Craft and manage the riffs feeding the Hypnotic Poetry engine.</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <a class="btn" href="https://dungeon.feralleathers.com/hypnosis.html">🌀 Hypnosis Tool</a>
+      <a class="btn" href="https://dungeon.feralleathers.com/hypno-wireframes.html">🎨 Wireframes</a>
+      <button class="btn" id="phraseStudioExport">Export JSON</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="sectiontitle">Need a walkthrough?</div>
+    <details class="tutorialCard">
+      <summary>Phrase Studio quickstart</summary>
+      <ol class="tutorialSteps">
+        <li>Select a topic on the left, then choose a sub-option to load its phrases.</li>
+        <li>Edit or add lines in the center editor. Save to persist overrides locally.</li>
+        <li>Reset reverts a sub-option to the default copy. Preview updates live.</li>
+        <li>Scroll to the bottom panel to review user-submitted requests from Hypnosis.</li>
+        <li>Need more detail? <a href="https://dungeon.feralleathers.com/docs/phrase-studio.md" target="_blank">Full tutorial</a>.</li>
+      </ol>
+    </details>
+  </div>
+  <div class="grid">
+    <div class="panel">
+      <div class="sectiontitle">Topics</div>
+      <div id="psTopicList" class="topicList">
+    <button class="topicBtn active" data-topic="abdl">
+      ABDL Comfort
+    </button>
+  
+    <button class="topicBtn " data-topic="alpha">
+      Alpha Status
+    </button>
+  
+    <button class="topicBtn " data-topic="anal_play">
+      Anal Play
+    </button>
+  
+    <button class="topicBtn " data-topic="anal_focus">
+      Anal Play Focus
+    </button>
+  
+    <button class="topicBtn " data-topic="bondage">
+      Bondage &amp; Restraints
+    </button>
+  
+    <button class="topicBtn " data-topic="body_types">
+      Body Types Preferred
+    </button>
+  
+    <button class="topicBtn " data-topic="chastity">
+      Chastity Rituals
+    </button>
+  
+    <button class="topicBtn " data-topic="cocksuck">
+      Cock-Sucking Training
+    </button>
+  
+    <button class="topicBtn " data-topic="drone">
+      Drone / Object
+    </button>
+  
+    <button class="topicBtn " data-topic="edging">
+      Edging / Gooning
+    </button>
+  
+    <button class="topicBtn " data-topic="feet">
+      Feet &amp; Worship
+    </button>
+  
+    <button class="topicBtn " data-topic="fetish">
+      Fetish &amp; Fantasy
+    </button>
+  
+    <button class="topicBtn " data-topic="gear">
+      Gear &amp; Clothing
+    </button>
+  
+    <button class="topicBtn " data-topic="hypnosis">
+      Hypnosis &amp; Mindset
+    </button>
+  
+    <button class="topicBtn " data-topic="impact">
+      Impact / CBT
+    </button>
+  
+    <button class="topicBtn " data-topic="interaction">
+      Interaction Style
+    </button>
+  
+    <button class="topicBtn " data-topic="machine">
+      Machine Play
+    </button>
+  
+    <button class="topicBtn " data-topic="muscle">
+      Muscle Focus
+    </button>
+  
+    <button class="topicBtn " data-topic="nipple">
+      Nipple Torment
+    </button>
+  
+    <button class="topicBtn " data-topic="pet">
+      Pet Play
+    </button>
+  
+    <button class="topicBtn " data-topic="piss">
+      Piss Play
+    </button>
+  
+    <button class="topicBtn " data-topic="power">
+      Power Dynamics
+    </button>
+  
+    <button class="topicBtn " data-topic="rubber">
+      Rubber Obsession
+    </button>
+  
+    <button class="topicBtn " data-topic="scene">
+      Scene Structure Elements
+    </button>
+  
+    <button class="topicBtn " data-topic="sensation">
+      Sensation / Sensory
+    </button>
+  
+    <button class="topicBtn " data-topic="slave">
+      Slave Dynamics
+    </button>
+  </div>
+    </div>
+    <div class="panel">
+      <div class="sectiontitle">Sub-options</div>
+      <div id="psOptionList" class="optionList">
+    <button class="optionPill active" data-option="abdl_nursery">
+      Nursery rituals
+    </button>
+  
+    <button class="optionPill " data-option="abdl_diaper_wet">
+      Diapers (wet only)
+    </button>
+  
+    <button class="optionPill " data-option="abdl_diaper_mess">
+      Diapers (messing)
+    </button>
+  </div>
+      <div class="sectiontitle" style="margin-top:12px">Lines</div>
+      <div class="editorLines" id="psLineEditor">
+    <div class="editorLine" data-index="0">
+      <textarea rows="2">You crawl onto the rug and the pastel walls swallow you whole.</textarea>
+      <button class="btn ghost" data-remove="0">✕</button>
+    </div>
+  
+    <div class="editorLine" data-index="1">
+      <textarea rows="2">You rock under the mobile while the lullaby rewires your breathing.</textarea>
+      <button class="btn ghost" data-remove="1">✕</button>
+    </div>
+  
+    <div class="editorLine" data-index="2">
+      <textarea rows="2">You suck the pacifier because it tastes like my approval.</textarea>
+      <button class="btn ghost" data-remove="2">✕</button>
+    </div>
+  
+    <div class="editorLine" data-index="3">
+      <textarea rows="2">You grip the plush blanket since it smells exactly like me.</textarea>
+      <button class="btn ghost" data-remove="3">✕</button>
+    </div>
+  
+    <div class="editorLine" data-index="4">
+      <textarea rows="2">You only settle when the crimson nightlight proves I am near.</textarea>
+      <button class="btn ghost" data-remove="4">✕</button>
+    </div>
+  </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn" id="psAddLine">+ Add</button>
+        <button class="btn" id="psResetLines">Reset</button>
+        <button class="btn red" id="psSaveLines">Save</button>
+      </div>
+      <div class="status" id="psStatus">Editing ABDL Comfort • Nursery rituals</div>
+    </div>
+    <div class="panel">
+      <div class="sectiontitle">Preview</div>
+      <div id="psPreview" class="previewBox"><ol><li>You crawl onto the rug and the pastel walls swallow you whole.</li><li>You rock under the mobile while the lullaby rewires your breathing.</li><li>You suck the pacifier because it tastes like my approval.</li><li>You grip the plush blanket since it smells exactly like me.</li><li>You only settle when the crimson nightlight proves I am near.</li></ol></div>
+      <button class="btn" id="psPlayLines" style="margin-top:10px">Play snippet</button>
+    </div>
+  </div>
+  <div class="panel requestWrap">
+    <div class="sectiontitle">User-Requested Phrase Drops</div>
+    <p class="small">Live feed of the ideas coming in from the Hypnosis page.</p>
+    <div id="psRequestFeed" class="requestFeed">
+      <div class="requestCard muted">
+        <header>
+          <span>Awaiting submissions</span>
+          <span class="requestMeta">Premium queue</span>
+        </header>
+        <p class="small">When trancers send in kink wishlists from the Ritual Builder, they’ll appear here for editing.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" src="./Feral Hypnotics — Phrase Studio_files/phrase-studio.js.download"></script>
+<script defer="" src="./Feral Hypnotics — Phrase Studio_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;e8f355a9397647c78a12971ec6350cb3&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>

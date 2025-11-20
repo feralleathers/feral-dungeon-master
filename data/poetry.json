@@ -1,0 +1,74 @@
+[
+  {
+    "id": "intro_rivet_calm",
+    "type": "intro",
+    "tone": "grounding",
+    "moods": ["arrival", "containment"],
+    "phases": ["arrival"],
+    "tags": ["restraints", "steel", "breath"],
+    "text": "Steel ribs cradle you. Breath slows under my palm. Every exhale belongs to the dungeon now."
+  },
+  {
+    "id": "intro_leather_swoon",
+    "type": "intro",
+    "tone": "sensual",
+    "moods": ["arrival", "worship"],
+    "phases": ["arrival"],
+    "tags": ["leather", "outfit"],
+    "text": "Leather whispers over your skin, slick and dark. Let the scent fog your head until nothing exists but obedience."
+  },
+  {
+    "id": "verse_chain_slow",
+    "type": "verse",
+    "tone": "commanding",
+    "moods": ["induction", "obedience"],
+    "phases": ["induction"],
+    "tags": ["restraints", "chains", "breath"],
+    "text": "Count the chain links, slow and heavy. With each number, another limb softens and drops into the steel."
+  },
+  {
+    "id": "verse_machine_pulse",
+    "type": "verse",
+    "tone": "mechanical",
+    "moods": ["deepening", "surrender"],
+    "phases": ["deepening"],
+    "tags": ["machines", "e-stim"],
+    "text": "Hear the piston pulse. Inhale when it withdraws, exhale when it drives. Your mind syncs to the rhythm until only the machine thinks for you."
+  },
+  {
+    "id": "bridge_breath_denial",
+    "type": "bridge",
+    "tone": "intense",
+    "moods": ["deepening", "denial"],
+    "phases": ["deepening", "play"],
+    "tags": ["breath", "hood"],
+    "text": "The hood narrows every breath to a velvet thread. Chase the air, chase my voice, chase nothing else."
+  },
+  {
+    "id": "chorus_steel_anthem",
+    "type": "chorus",
+    "tone": "anthemic",
+    "moods": ["play", "exaltation"],
+    "phases": ["play"],
+    "tags": ["steel", "restraints"],
+    "text": "Steel holds, leather seals, mind kneels. Repeat it. Believe it. Become it."
+  },
+  {
+    "id": "chorus_fluid_glow",
+    "type": "chorus",
+    "tone": "hypnotic",
+    "moods": ["play", "sensory"],
+    "phases": ["play"],
+    "tags": ["liquid", "sensation"],
+    "text": "Molten warmth pours down your throat, filling every nerve with amber light. Float inside that glow and let the dungeon steer."
+  },
+  {
+    "id": "release_sacred_exit",
+    "type": "release",
+    "tone": "reassuring",
+    "moods": ["release", "aftercare"],
+    "phases": ["release"],
+    "tags": ["aftercare", "breath"],
+    "text": "I strip the gear but not the promise. Each breath brings you back, leather-sweet and adored, still humming with my mark."
+  }
+]

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Feral Leathers — Account Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0b0d12; --panel:#121722; --line:#1f2432; --text:#f4f4f7; --muted:#9ea8bc; --accent:#f0415d; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at top,#101629,#07090f 60%); font-family:'Inter',system-ui,sans-serif; color:var(--text); }
+    .card { width: min(420px, calc(100% - 32px)); background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:28px; box-shadow:0 40px 80px rgba(0,0,0,.45); }
+    h1 { margin:0 0 6px; font:700 26px/1.2 'Inter'; }
+    p { margin:0 0 18px; color:var(--muted); font-size:14px; }
+    label { font-size:13px; font-weight:600; display:block; margin-bottom:6px; }
+    input { width:100%; padding:12px; border-radius:12px; border:1px solid var(--line); background:#0a0e16; color:#fff; font-size:14px; }
+    button { width:100%; margin-top:16px; padding:12px; border:none; border-radius:12px; background:var(--accent); color:#fff; font:600 15px/1 'Inter'; cursor:pointer; }
+    .foot { margin-top:18px; font-size:13px; color:var(--muted); text-align:center; }
+    .foot a { color:#fff; text-decoration:none; font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Access your Dungeon</h1>
+    <p>Enter your email to receive a passwordless link. Signing in issues a Cloudflare Access token for dungeon.feralleathers.com.</p>
+    <label for="email">Email address</label>
+    <input id="email" type="email" placeholder="you@feralleathers.com">
+    <button type="button">Send login link</button>
+    <div class="foot">
+      Need the full suite? <a href="dungeon-sales.html">Choose a plan</a><br>
+      Already have a token? <a href="landing.html">Go to access panel</a>
+    </div>
+  </div>
+</body>
+</html>
+

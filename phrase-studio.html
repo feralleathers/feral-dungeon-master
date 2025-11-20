@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feral Hypnotics — Phrase Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1113;--pane:#13171d;--pane2:#161b22;--line:#1f252d;--accent:#c73a3a;--txt:#f2f2f2;--mut:#a7a7a7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Playfair Display',serif}
+.wrap{max-width:1200px;margin:0 auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.btn{border:1px solid var(--line);background:var(--pane);color:var(--txt);border-radius:10px;padding:8px 16px;font:700 12px/1 system-ui;cursor:pointer}
+.btn.red{background:var(--accent);border-color:#6f1a1a;color:#fff}
+.grid{display:grid;grid-template-columns:260px 1fr 320px;gap:14px}
+.panel{border:1px solid var(--line);border-radius:14px;padding:12px;background:linear-gradient(180deg,var(--pane),var(--pane2));min-height:200px}
+.sectiontitle{font:700 13px/1.3 system-ui;margin:0 0 8px;color:#cfcfcf}
+.small{color:var(--mut);font:600 12px/1.4 system-ui}
+.topicList{max-height:70vh;overflow:auto;display:flex;flex-direction:column;gap:6px}
+.topicBtn{border:1px solid var(--line);border-radius:10px;padding:8px;background:#10151c;color:var(--txt);font:700 12px/1.3 system-ui;text-align:left;cursor:pointer}
+.topicBtn.active{border-color:var(--accent);background:#1a1011}
+.optionList{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.optionPill{border:1px solid var(--line);border-radius:20px;padding:4px 10px;font:700 11px system-ui;cursor:pointer}
+.optionPill.active{border-color:var(--accent);background:#1a1011}
+.question-bank{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:12px;
+}
+.question-bank-header{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+}
+.question-bank-options{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  max-height:240px;
+  overflow:auto;
+}
+.question-bank-option{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.question-bank-option input{
+  flex:1;
+  border-radius:8px;
+  border:1px solid #232935;
+  background:#090c11;
+  color:#f2f2f2;
+  padding:8px 10px;
+  font:600 12px system-ui;
+}
+.question-bank-option button{
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#10151c;
+  color:#f2f2f2;
+  font:600 11px system-ui;
+  padding:6px 10px;
+  cursor:pointer;
+}
+.editorLines{display:flex;flex-direction:column;gap:10px;max-height:65vh;overflow:auto;margin-top:8px}
+.editorLine{border:1px solid var(--line);border-radius:12px;padding:8px;background:#0f141a;display:flex;gap:8px;align-items:flex-start}
+.editorLine textarea{flex:1;border:1px solid #272d35;background:#080b11;color:var(--txt);border-radius:10px;padding:8px;font:600 12px/1.5 'Playfair Display',serif}
+.editorLine button{align-self:flex-start}
+.previewBox{border:1px dashed var(--line);border-radius:12px;padding:10px;background:#0f1319;max-height:65vh;overflow:auto}
+.previewBox li{margin-bottom:6px;font:600 12px/1.4 'Playfair Display',serif}
+.status{font:600 12px/1.4 system-ui;color:#9ad1c9;margin-top:10px}
+.tutorialCard{border:1px solid #1f242a;border-radius:12px;padding:10px;background:#0f1317;margin:12px 0}
+.tutorialCard summary{cursor:pointer;font:700 12px/1.3 system-ui;color:#f5dede;display:flex;align-items:center;gap:6px}
+.tutorialCard summary::marker{color:#c73a3a}
+.tutorialSteps{margin:8px 0 0;padding-left:18px;font:600 12px/1.4 system-ui;color:#cfcfcf}
+.tutorialSteps li{margin-bottom:4px}
+.requestWrap{margin-top:18px}
+.requestFeed{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.requestCard{border:1px solid var(--line);border-radius:12px;padding:10px;background:#0f141a}
+.requestCard header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font:700 12px/1.2 system-ui}
+.requestMeta{font:600 11px/1.1 system-ui;color:#8ea1b7}
+.muted{color:#748089}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1 style="margin:0;font-size:24px">Phrase Studio</h1>
+      <p class="small" style="margin:4px 0 0">Craft and manage the riffs feeding the Hypnotic Poetry engine.</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <a class="btn" href="hypnosis.html">🌀 Hypnosis Tool</a>
+      <a class="btn" href="hypno-wireframes.html">🎨 Wireframes</a>
+      <button class="btn" id="phraseStudioExport">Export JSON</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="sectiontitle">Need a walkthrough?</div>
+    <details class="tutorialCard">
+      <summary>Phrase Studio quickstart</summary>
+      <ol class="tutorialSteps">
+        <li>Select a topic on the left, then choose a sub-option to load its phrases.</li>
+        <li>Edit or add lines in the center editor. Save to persist overrides locally.</li>
+        <li>Reset reverts a sub-option to the default copy. Preview updates live.</li>
+        <li>Scroll to the bottom panel to review user-submitted requests from Hypnosis.</li>
+        <li>Need more detail? <a href="docs/phrase-studio.md" target="_blank">Full tutorial</a>.</li>
+      </ol>
+    </details>
+  </div>
+  <div class="grid">
+    <div class="panel">
+      <div class="sectiontitle">Topics</div>
+      <div id="psTopicList" class="topicList"></div>
+    </div>
+    <div class="panel">
+      <div class="sectiontitle">Sub-options</div>
+      <div id="psOptionList" class="optionList"></div>
+      <div class="sectiontitle" style="margin-top:12px">Lines</div>
+      <div class="editorLines" id="psLineEditor"></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn" id="psAddLine">+ Add</button>
+        <button class="btn" id="psResetLines">Reset</button>
+        <button class="btn red" id="psSaveLines">Save</button>
+      </div>
+      <div class="status" id="psStatus">Pick a topic to begin.</div>
+    </div>
+    <div class="panel">
+      <div class="sectiontitle">Preview</div>
+      <div id="psPreview" class="previewBox"><em>Lines preview as you edit.</em></div>
+      <button class="btn" id="psPlayLines" style="margin-top:10px" disabled>Play snippet</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="sectiontitle">Question bank</div>
+    <p class="small">Define the same question bank that informs the Hypno generator and profile questionnaire.</p>
+    <div class="question-bank">
+      <div class="question-bank-header">
+        <select id="questionBankCategory"></select>
+        <button class="btn" id="qbAddOption">+ Add option</button>
+        <button class="btn red" id="qbSaveBank">Save bank</button>
+      </div>
+      <div id="questionBankOptions" class="question-bank-options"></div>
+    </div>
+    <div class="status" id="qbStatus">Question bank loaded from defaults.</div>
+  </div>
+  <div class="panel requestWrap">
+    <div class="sectiontitle">User-Requested Phrase Drops</div>
+    <p class="small">Live feed of the ideas coming in from the Hypnosis page.</p>
+    <div id="psRequestFeed" class="requestFeed">
+      <div class="requestCard muted">
+        <header>
+          <span>Awaiting submissions</span>
+          <span class="requestMeta">Premium queue</span>
+        </header>
+        <p class="small">When trancers send in kink wishlists from the Ritual Builder, they’ll appear here for editing.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" src="js/hypno/phrase-studio.js"></script>
+</body>
+</html>

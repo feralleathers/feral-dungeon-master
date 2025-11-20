@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://dungeon.feralleathers.com/hypnosis -->
+<html lang="en" style="--wrap-left: 189.1999969482422px; --wrap-width: 1100px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feral Hypnotics — Therapy Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/"><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Feral Hypnotics — Therapy Tool_files/css2" rel="stylesheet">
+<style>
+:root{--bg:#0f1113;--p1:#15181b;--p2:#1b1f24;--txt:#e8e8e8;--mut:#a7a7a7;--line:#262b31;--accent:#c73a3a;--wrap-left:20px;--wrap-width:1100px;--panel-handle:22px;--panel-stack-start:120px;--panel-stack-gap:16px;--panel-stack-height:calc((100vh - 220px)/2)}
+*{box-sizing:border-box} body{margin:0;background:#0f1113;color:var(--txt);font-family:"Playfair Display",serif}
+.wrap{max-width:1100px;margin:0 auto;padding:18px;position:relative;z-index:10}
+h1{margin:0 0 8px;font-size:26px}
+.top{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.btn{border:1px solid var(--line);background:#15181b;color:#eee;border-radius:10px;padding:8px 12px;cursor:pointer;font:700 12px/1 system-ui}
+.btn.red{border-color:#6f1a1a;background:#c73a3a}
+.card{background:linear-gradient(180deg,var(--p1),var(--p2));border:1px solid var(--line);border-radius:14px;padding:12px;position:relative;z-index:5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inp,select,textarea{width:100%;border:1px solid #2a3036;background:#0f1418;color:#eee;border-radius:10px;padding:8px 10px;font:600 12px system-ui}
+.small{color:#cfcfcf;font:600 12px/1.35 system-ui}
+.row{display:flex;gap:8px;align-items:center}
+.badge{display:inline-block;border:1px solid #30363d;border-radius:999px;padding:3px 8px;font:700 11px system-ui;background:#13181c;color:#c9c9c9}
+hr{border:0;border-top:1px solid #22282f;margin:10px 0}
+.preview{min-height:140px;border:1px dashed #30363d;border-radius:12px;padding:10px;overflow:auto}
+.kpill{display:inline-flex;gap:6px;align-items:center;border:1px solid #2a3036;background:#0f1418;color:#eee;border-radius:999px;padding:4px 8px;font:700 11px system-ui}
+.poetryGrid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:12px;align-items:start}
+.phaseWrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.phaseColumn{border:1px solid #20252b;border-radius:12px;padding:10px;background:#0f1418;display:flex;flex-direction:column;min-height:200px;position:relative;z-index:5}
+.phaseColumn h4{margin:0;font:700 13px/1.2 system-ui;color:#f7f7f7}
+.phaseColumn p{margin:4px 0 8px;font:600 11px/1.3 system-ui;color:#a7a7a7}
+.phaseBlocks{display:flex;flex-direction:column;gap:8px;flex:1}
+.poBlock{border:1px solid #2a3036;border-radius:10px;padding:8px;background:#11151a}
+.poBlock small{display:block;font:700 10px/1.2 system-ui;color:#9d9d9d;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.poBlock p{margin:0;font:600 12px/1.4 'Playfair Display',serif;color:#e6e6e6}
+.poBlock button{margin-top:6px}
+.poTagList{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.poTagList .badge{cursor:pointer}
+.ghost{background:transparent;border:1px dashed #3a3f46;color:#c9c9c9}
+.tutorialCard{border:1px solid #1f242a;border-radius:12px;padding:10px;background:#0f1317;margin:10px 0}
+.tutorialCard summary{cursor:pointer;font:700 12px/1.3 system-ui;color:#f5dede;display:flex;align-items:center;gap:6px}
+.tutorialCard summary::marker{color:#c73a3a}
+.tutorialSteps{margin:8px 0 0;padding-left:18px;font:600 12px/1.4 system-ui;color:#cfcfcf}
+.tutorialSteps li{margin-bottom:4px}
+.personaBar{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.personaPill{border:1px solid #2a3036;border-radius:24px;padding:10px 16px;font:700 13px/1.4 system-ui;background:#0f1418;color:#f0f0f0;cursor:pointer;min-width:120px;justify-content:center;display:flex;align-items:center;gap:6px}
+.personaPill.active{border-color:#c73a3a;background:#1b1011}
+.reinforceSwitch{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.reinforceSwitch button{flex:1 1 120px;border:1px solid #2a3036;border-radius:12px;padding:7px 12px;background:#0f1418;color:#f0f0f0;font:700 11px/1.2 system-ui;cursor:pointer}
+.reinforceSwitch button.active{border-color:#c73a3a;background:#1b1011}
+.nounAuraToggle{display:flex;gap:8px;margin-top:6px}
+.nounAuraToggle button{flex:1;border:1px solid #2a3036;border-radius:12px;padding:7px 12px;background:#0f1418;color:#f0f0f0;font:700 11px/1.2 system-ui;cursor:pointer}
+.nounAuraToggle button.active{border-color:#c73a3a;background:#1b1011}
+.kinkGrid{display:grid;width:100%;max-width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:16px 0}
+@media(max-width:900px){.kinkGrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:600px){.kinkGrid{grid-template-columns:1fr;}}
+.kinkCard{border:1px solid #2a3036;border-radius:12px;padding:10px 12px;background:#10141a;color:#f0f0f0;font:600 12px/1.35 system-ui;transition:border .2s ease;min-height:130px;display:flex;flex-direction:column;justify-content:flex-start}
+.kinkCard header{display:flex;align-items:center;gap:8px;cursor:pointer}
+.kinkCard header input{display:none}
+.kinkCard ul{list-style:none;padding-left:0;margin:8px 0 0;display:none;flex-direction:column;gap:4px;font:600 11px/1.4 system-ui;color:#cfcfcf}
+.kinkCard ul label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.kinkCard.open{border-color:#c73a3a;background:#161015}
+.kinkCard.open ul{display:flex}
+.kinkChecklist{display:flex;flex-direction:column;gap:6px;max-height:calc(80vh - 210px);overflow:auto;padding-right:4px}
+.kinkChecklist label{display:flex;align-items:center;justify-content:space-between;border:1px solid #2a3036;border-radius:10px;padding:6px 10px;background:#0f1418;font:600 11px/1.35 system-ui;color:#f0f0f0;gap:8px}
+.kinkChecklist label span{flex:1;font:700 12px/1.3 'Playfair Display',serif;color:#f7f7f7}
+.kinkChecklist label input{accent-color:#c73a3a}
+.kinkChecklist label small{color:#8d8d8d;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.kinkChecklist label.disabled{opacity:.4;cursor:not-allowed}
+.kinkChecklist label.disabled input{cursor:not-allowed}
+.topicPalette{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
+.topicChip{border:1px solid #2a3036;border-radius:14px;padding:10px;background:#0f1418;color:#f0f0f0;font:600 13px/1.4 system-ui;display:flex;flex-direction:column;gap:6px}
+.topicChip.selected{border-color:#c73a3a;background:#1b1011}
+.topicChip.focus{box-shadow:0 0 0 2px rgba(199,58,58,0.35)}
+.topicChip p{margin:0;font:600 11px/1.4 system-ui;color:#bcbcbc}
+.topicChip footer{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.topicChip footer label{display:flex;align-items:center;gap:4px;font:600 11px/1.2 system-ui}
+.topicChip footer button{padding:4px 8px;border-radius:8px;border:1px solid #c73a3a;background:transparent;color:#f0dada;font:700 11px/1.2 system-ui;cursor:pointer}
+.subList{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.subCard{border:1px solid #2a3036;border-radius:12px;padding:8px 10px;background:#11151a;cursor:pointer}
+.subCard.active{border-color:#c73a3a;background:#1b1011}
+.subCard header{display:flex;justify-content:space-between;align-items:center;font:700 12px system-ui;color:#f1f1f1}
+.subCard p{margin:4px 0 0;font:600 11px/1.35 system-ui;color:#c7c7c7}
+.phraseList{max-height:360px;overflow:auto;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.phraseCard{border:1px solid #2a3036;border-radius:10px;padding:8px;background:#10141a}
+.phraseCard p{margin:0 0 6px;font:600 12px/1.4 'Playfair Display',serif}
+.phraseCard footer{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.phraseActions{display:flex;gap:8px;margin:8px 0 0}
+.phraseActions button{flex:1}
+.customPanel{border:1px dashed #2a2f36;border-radius:12px;padding:10px;background:#0f1317;margin-top:10px}
+.customPanel textarea{min-height:90px;margin-top:6px}
+.commandControls{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.commandControls button{flex:1}
+.commandStatus{font:600 11px/1.3 system-ui;color:#bcbcbc;margin-top:6px}
+.scriptbox{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.scriptPane{border:1px solid #2d3239;border-radius:10px;padding:10px;background:#0f1418}
+.scriptPaneHead{display:flex;flex-direction:column;gap:2px;margin-bottom:8px;font:600 11px/1.3 system-ui;color:#c9c9c9;text-transform:uppercase;letter-spacing:.05em}
+.scriptPaneHead strong{font:700 13px/1.2 'Playfair Display',serif;color:#f7f7f7;text-transform:none;letter-spacing:0}
+.scriptPaneBody{min-height:120px;max-height:280px;overflow:auto;border:1px dashed #2a333b;border-radius:8px;padding:10px;font:600 12px/1.45 'Playfair Display',serif;color:#f0f0f0;background:#0a0d10}
+.phraseBundle,.sectionBundle{border:1px solid #2f363f;border-radius:8px;padding:8px 10px;margin-bottom:8px;background:#10141a}
+.bundleTitle{font:700 12px/1.3 system-ui;color:#f7f7f7;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.phraseBundle ol,.sectionBundle ol{margin:0;padding-left:18px;font:600 12px/1.5 'Playfair Display',serif;color:#d8d8d8}
+.phraseBundle ol li,.sectionBundle ol li{margin-bottom:4px}
+.sectionBundle ol li:last-child,
+.phraseBundle ol li:last-child{margin-bottom:0}
+.audioGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:10px}
+.layerList{display:flex;flex-direction:column;gap:6px}
+.layerList label{display:flex;justify-content:space-between;align-items:center;border:1px solid #2a3036;border-radius:10px;padding:6px 10px;font:600 12px/1.3 system-ui;background:#0f1418}
+.studioStatus{font:700 12px/1.3 system-ui;color:#cfcfcf;margin-top:8px}
+.sidepanel{position:fixed;top:90px;width:280px;max-height:80vh;background:linear-gradient(180deg,#121519,#0f1113);border:1px solid #262b31;border-radius:14px;padding:12px;box-shadow:0 18px 40px rgba(0,0,0,.55);z-index:1;transition:transform .35s ease,opacity .3s ease}
+.sidepanel .sideBody{position:relative;z-index:1;max-height:calc(80vh - 60px);overflow:hidden;margin-top:12px;padding-right:8px}
+.sidepanel .sideBody::-webkit-scrollbar{width:0}
+.sidepanel .sideBody:hover{overflow:auto}
+.sidepanel.left{left:calc(var(--wrap-left) - 280px);transform:translateX(calc(100% - (var(--panel-handle) / 2) - 4px));opacity:0.9}
+.sidepanel.left:hover{opacity:1}
+.sidepanel.left.open{transform:translateX(0);opacity:1}
+.sidepanel.right{left:calc(var(--wrap-left) + var(--wrap-width));transform:translateX(calc(-100% + (var(--panel-handle) / 2) + 4px));opacity:0.9}
+.sidepanel.right:hover{opacity:1}
+.sidepanel.right.open{transform:translateX(0);opacity:1}
+.sideToggle{position:absolute;top:50%;transform:translateY(-50%);background:#c73a3a;color:#fff;border:none;padding:6px;font:700 11px/1.2 system-ui;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);width:var(--panel-handle);height:160px;border-radius:0 12px 12px 0;display:flex;align-items:center;justify-content:center;z-index:50}
+.sideToggle span{pointer-events:none;writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.18em}
+.sidepanel.right .sideToggle{right:calc((-1 * var(--panel-handle)) / 2 - 4px);left:auto;border-radius:0 12px 12px 0}
+.sidepanel.left .sideToggle{left:calc((-1 * var(--panel-handle)) / 2 - 4px);right:auto;border-radius:12px 0 0 12px}
+.sidepanel.right .sideToggle span{writing-mode:vertical-lr}
+.sideToggle{z-index:50}
+.sidepanel.open .sideToggle{position:absolute;top:10px;right:10px;left:auto;width:auto;height:auto;padding:6px 12px;border-radius:10px;transform:none}
+.sidepanel.open.sidepanel.right .sideToggle{right:10px;left:auto}
+.sidepanel.open.sidepanel.left .sideToggle{right:10px}
+.sidepanel.open .sideToggle span{writing-mode:horizontal-tb;letter-spacing:.05em}
+.requestFeed{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.requestCard{border:1px solid #262b31;border-radius:12px;padding:10px;background:#10141a}
+.requestCard header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font:700 12px/1.2 system-ui}
+.requestMeta{font:600 11px/1.1 system-ui;color:#8ea1b7}
+.requestFormGroup{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+.requestFormGroup label{font:700 12px/1.2 system-ui;color:#cfcfcf}
+.requestFormGroup input,.requestFormGroup textarea{border:1px solid #2a3036;border-radius:10px;padding:8px;background:#0b1015;color:#e6e6e6;font:600 12px/1.4 system-ui}
+.requestFormGroup textarea{min-height:56px}
+.requestStatus{font:600 11px/1.3 system-ui;color:#748089;margin-top:6px}
+.muted{color:#748089}
+#requestPanel .sideBody{display:flex;flex-direction:column;max-height:none;height:calc(100% - 40px)}
+#requestPanel .requestFeed{flex:1;overflow:auto;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Feral Hypnotics — Therapy Tool</h1>
+    <div style="display:flex;gap:8px">
+      <a class="btn" href="https://dungeon.feralleathers.com/index.html">🎛 Scene Designer</a>
+      <a class="btn" href="https://dungeon.feralleathers.com/inventory.html">📦 Inventory</a>
+      <a class="btn" href="https://dungeon.feralleathers.com/phrase-studio.html">🛠 Phrase Studio</a>
+      <a class="btn" href="https://dungeon.feralleathers.com/hypno-wireframes.html">🎨 Wireframes</a>
+      <a class="btn" href="https://dungeon.feralleathers.com/hypnosis.html">🔄 Refresh</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="sectiontitle">Hypnotic Poetry Engine</div>
+    <p class="small">Draft intros, verses, bridges, choruses, and release vows that echo the dungeon’s leather-industrial hum.</p>
+    <details class="tutorialCard">
+      <summary>Need a walkthrough?</summary>
+      <ol class="tutorialSteps">
+        <li>Scroll to the Ritual Builder on this page—Arrival through Release are stacked as columns.</li>
+        <li>Tap a topic on the right, pick one of its sub-scenes, then sample the five phrases it offers.</li>
+        <li>Choose which phase should receive the phrase and hit “Add” to drop it into the timeline.</li>
+        <li>Layer multiple topics (containment, breathwork, worship) until the tags read the kink cocktail you want.</li>
+        <li>Save drafts, add dungeon notes, and export the full script once everything feels razor-sharp.</li>
+        <li>Want deeper lore? The <code>docs/hypnotic-poetry.md</code> file ships with full instructions.</li>
+      </ol>
+    </details>
+    <div class="small" style="font-size:16px;font-weight:700;margin-top:12px">Headspace: who are you speaking to?</div>
+    <div id="poPersonaList" class="personaBar"><button class="personaPill active" data-persona="sub">🧷 Sub</button><button class="personaPill " data-persona="bdsm_sub">🖤 BDSM Sub</button><button class="personaPill " data-persona="slave">⛓️ Slave</button><button class="personaPill " data-persona="drone">🛰 Drone</button><button class="personaPill " data-persona="pup">🐺 Pup</button><button class="personaPill " data-persona="kitten">🐱 Kitten</button><button class="personaPill " data-persona="doll">🪆 Doll</button><button class="personaPill " data-persona="boy">🧢 Boy</button><button class="personaPill " data-persona="jock">🏈 Jock</button></div>
+    <div class="row" style="gap:10px;align-items:center;margin-top:6px">
+      <div class="small" style="min-width:120px">Honorific vibe</div>
+      <select id="poPersonaNoun" class="inp" style="max-width:220px">
+        <option value="auto">Auto</option>
+        <option value="boy">Boy</option>
+        <option value="girl">Girl</option>
+        <option value="pet">Pet</option>
+      </select>
+    </div>
+    <div class="small" style="margin-top:6px">Noun aura</div>
+    <div class="nounAuraToggle">
+      <button type="button" class="active" data-aura="neutral">Neutral</button>
+      <button type="button" data-aura="masc">Masculine</button>
+      <button type="button" data-aura="femme">Femme</button>
+    </div>
+    <div class="small" style="margin-top:10px">Reinforcement tones (mix and match)</div>
+    <div class="reinforceSwitch">
+      <button data-tone="any" class="active">Any</button>
+      <button data-tone="praise">Praise</button>
+      <button data-tone="neutral">Neutral</button>
+      <button data-tone="humiliation">Humiliation</button>
+      <button data-tone="control">Control</button>
+      <button data-tone="worship">Worship</button>
+    </div>
+    <div class="small" style="margin-top:12px">Kink index (tap anything that fits tonight’s vibe)</div>
+    <div id="kinkGrid" class="kinkGrid">
+    <div class="kinkCard" data-topic="abdl">
+      <header><label><input class="kinkMaster" type="checkbox"> ABDL Comfort</label></header>
+      <ul><label><input type="checkbox" data-phrase="abdl_nursery">Nursery rituals</label><label><input type="checkbox" data-phrase="abdl_diaper_wet">Diapers (wet only)</label><label><input type="checkbox" data-phrase="abdl_diaper_mess">Diapers (messing)</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="anal_play">
+      <header><label><input class="kinkMaster" type="checkbox"> Anal Play</label></header>
+      <ul><label><input type="checkbox" data-phrase="anal_training">Anal training</label><label><input type="checkbox" data-phrase="anal_machines">Toys &amp; machines</label><label><input type="checkbox" data-phrase="anal_prostate">Prostate focus</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="anal_focus">
+      <header><label><input class="kinkMaster" type="checkbox"> Anal Play Focus</label></header>
+      <ul><label><input type="checkbox" data-phrase="anal_stretch">Stretch training</label><label><input type="checkbox" data-phrase="anal_machine">Machine thrusts</label><label><input type="checkbox" data-phrase="anal_rimming">Rimming worship</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="bondage">
+      <header><label><input class="kinkMaster" type="checkbox"> Bondage &amp; Restraints</label></header>
+      <ul><label><input type="checkbox" data-phrase="bondage_rope">Rope harness webbing</label><label><input type="checkbox" data-phrase="bondage_vacbed">Vac-bed / sleepsack cocoon</label><label><input type="checkbox" data-phrase="bondage_gag">Locking gag or bit</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="chastity">
+      <header><label><input class="kinkMaster" type="checkbox"> Chastity Rituals</label></header>
+      <ul><label><input type="checkbox" data-phrase="chastity_key">Daily key talk</label><label><input type="checkbox" data-phrase="chastity_edge">Edge assignment</label><label><input type="checkbox" data-phrase="chastity_unlock">Unlock ceremony</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="cocksuck">
+      <header><label><input class="kinkMaster" type="checkbox"> Cock-Sucking Training</label></header>
+      <ul><label><input type="checkbox" data-phrase="cocksuck_gag">Gag control</label><label><input type="checkbox" data-phrase="cocksuck_service">Service pace</label><label><input type="checkbox" data-phrase="cocksuck_face">Face-fuck focus</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="drone">
+      <header><label><input class="kinkMaster" type="checkbox"> Drone / Object</label></header>
+      <ul><label><input type="checkbox" data-phrase="drone_number">Number identity</label><label><input type="checkbox" data-phrase="drone_servo">Servo movements</label><label><input type="checkbox" data-phrase="drone_voice">Voice loop</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="edging">
+      <header><label><input class="kinkMaster" type="checkbox"> Edging / Gooning</label></header>
+      <ul><label><input type="checkbox" data-phrase="edge_timer">Edge timers</label><label><input type="checkbox" data-phrase="edge_goon">Goon trance</label><label><input type="checkbox" data-phrase="edge_ruin">Ruined release</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="feet">
+      <header><label><input class="kinkMaster" type="checkbox"> Feet &amp; Worship</label></header>
+      <ul><label><input type="checkbox" data-phrase="feet_toe">Toe licking</label><label><input type="checkbox" data-phrase="feet_boot">Boot polish</label><label><input type="checkbox" data-phrase="feet_sock">Sock sniffing</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="fetish">
+      <header><label><input class="kinkMaster" type="checkbox"> Fetish &amp; Fantasy</label></header>
+      <ul><label><input type="checkbox" data-phrase="fetish_worship">Body &amp; muscle worship</label><label><input type="checkbox" data-phrase="fetish_creature">Creature / anthro immersion</label><label><input type="checkbox" data-phrase="fetish_medical">Medical or body-mod ritual</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="gear">
+      <header><label><input class="kinkMaster" type="checkbox"> Gear &amp; Clothing</label></header>
+      <ul><label><input type="checkbox" data-phrase="gear_leather">Leather / neoprene armor</label><label><input type="checkbox" data-phrase="gear_rubber">Rubber or latex suits</label><label><input type="checkbox" data-phrase="gear_uniform">Uniform &amp; military fetish</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="hypnosis">
+      <header><label><input class="kinkMaster" type="checkbox"> Hypnosis &amp; Mindset</label></header>
+      <ul><label><input type="checkbox" data-phrase="hypno_induction">Deep induction loops</label><label><input type="checkbox" data-phrase="hypno_conditioning">Conditioning mantras</label><label><input type="checkbox" data-phrase="hypno_aftercare">Aftercare mental soothing</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="impact">
+      <header><label><input class="kinkMaster" type="checkbox"> Impact / CBT</label></header>
+      <ul><label><input type="checkbox" data-phrase="impact_spank">Spanking &amp; flogging</label><label><input type="checkbox" data-phrase="impact_whips">Whips / wrestling</label><label><input type="checkbox" data-phrase="impact_cbt">CBT play</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="interaction">
+      <header><label><input class="kinkMaster" type="checkbox"> Interaction Style</label></header>
+      <ul><label><input type="checkbox" data-phrase="interaction_cuddle">Cuddling &amp; afterplay</label><label><input type="checkbox" data-phrase="interaction_wrestle">Wrestle / roughhousing</label><label><input type="checkbox" data-phrase="interaction_group">Small-pack / group energy</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="machine">
+      <header><label><input class="kinkMaster" type="checkbox"> Machine Play</label></header>
+      <ul><label><input type="checkbox" data-phrase="machine_fuck">Fucking machine</label><label><input type="checkbox" data-phrase="machine_milk">Milking bench</label><label><input type="checkbox" data-phrase="machine_drill">Drill harness</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="muscle">
+      <header><label><input class="kinkMaster" type="checkbox"> Muscle Focus</label></header>
+      <ul><label><input type="checkbox" data-phrase="muscle_praise">Bodybuilder praise</label><label><input type="checkbox" data-phrase="muscle_compare">Size comparison</label><label><input type="checkbox" data-phrase="muscle_pump">Pump worship</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="nipple">
+      <header><label><input class="kinkMaster" type="checkbox"> Nipple Torment</label></header>
+      <ul><label><input type="checkbox" data-phrase="nipple_clamps">Clamps &amp; chains</label><label><input type="checkbox" data-phrase="nipple_suction">Hooded suction</label><label><input type="checkbox" data-phrase="nipple_electro">Electro flicks</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="pet">
+      <header><label><input class="kinkMaster" type="checkbox"> Pet Play</label></header>
+      <ul><label><input type="checkbox" data-phrase="pet_parade">Puppy play parade</label><label><input type="checkbox" data-phrase="pet_leash">Leash &amp; show training</label><label><input type="checkbox" data-phrase="pet_kennel">Kennel / cage downtime</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="piss">
+      <header><label><input class="kinkMaster" type="checkbox"> Piss Play</label></header>
+      <ul><label><input type="checkbox" data-phrase="piss_shower">Shower worship</label><label><input type="checkbox" data-phrase="piss_drink">Obedient drinking</label><label><input type="checkbox" data-phrase="piss_mark">Marked kneeling</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="power">
+      <header><label><input class="kinkMaster" type="checkbox"> Power Dynamics</label></header>
+      <ul><label><input type="checkbox" data-phrase="power_obedience">Obedience drills</label><label><input type="checkbox" data-phrase="power_discipline">Discipline &amp; punishment</label><label><input type="checkbox" data-phrase="power_primal">Primal chase energy</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="rubber">
+      <header><label><input class="kinkMaster" type="checkbox"> Rubber Obsession</label></header>
+      <ul><label><input type="checkbox" data-phrase="rubber_inflate">Inflatable gear</label><label><input type="checkbox" data-phrase="rubber_scent">Rubber scent</label><label><input type="checkbox" data-phrase="rubber_glove">Glove service</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="scene">
+      <header><label><input class="kinkMaster" type="checkbox"> Scene Structure Elements</label></header>
+      <ul><label><input type="checkbox" data-phrase="structure_edge">Edge / control pacing</label><label><input type="checkbox" data-phrase="structure_rewards">Reward or punishment beats</label><label><input type="checkbox" data-phrase="structure_environment">Environmental immersion cues</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="sensation">
+      <header><label><input class="kinkMaster" type="checkbox"> Sensation / Sensory</label></header>
+      <ul><label><input type="checkbox" data-phrase="sensory_deprive">Sensory deprivation hoods</label><label><input type="checkbox" data-phrase="sensory_wax">Wax &amp; temperature play</label><label><input type="checkbox" data-phrase="sensory_breath">Breath / scent fixation</label></ul>
+    </div>
+  
+    <div class="kinkCard" data-topic="slave">
+      <header><label><input class="kinkMaster" type="checkbox"> Slave Dynamics</label></header>
+      <ul><label><input type="checkbox" data-phrase="slave_protocol">Protocol drills</label><label><input type="checkbox" data-phrase="slave_chore">Chore lists</label><label><input type="checkbox" data-phrase="slave_punish">Punishment chart</label></ul>
+    </div>
+  </div>
+    <div class="row" style="margin:12px 0 0;gap:8px">
+      <button class="btn red" id="poSaveDraft">Save draft</button>
+      <button class="btn" id="poExportDraft">Export ritual</button>
+    </div>
+    <div class="poetryGrid">
+      <div>
+        <div id="poetryTimeline" class="phaseWrap"></div>
+        <textarea id="poNotes" class="inp" rows="3" placeholder="Dungeon notes, triggers, safeword reminders, induction cues."></textarea>
+        <div id="poExportOutput" class="preview" style="margin-top:8px;min-height:120px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="sidepanel right open" id="kinkGridPanel" style="top:var(--panel-stack-start);height:var(--panel-stack-height)">
+  <button class="sideToggle" data-panel="kinkGridPanel"><span>Kink Grid Curator</span></button>
+  <div class="sideBody">
+    <h3 style="margin:0 0 6px;font:700 14px/1.2 &#39;Playfair Display&#39;,serif">Kink Grid Curator</h3>
+    <p class="small">Choose up to 24 topics for the 4×6 matrix. Extras stay tucked here for later swaps.</p>
+    <div class="small" style="margin:6px 0">Selected: <span id="kinkSelectionCount">24</span>/24</div>
+    <div id="kinkChecklist" class="kinkChecklist">
+      <label class="">
+        <span>ABDL Comfort</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="abdl" checked="">
+      </label>
+    
+      <label class="disabled">
+        <span>Alpha Status</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="alpha" disabled="">
+      </label>
+    
+      <label class="">
+        <span>Anal Play</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="anal_play" checked="">
+      </label>
+    
+      <label class="">
+        <span>Anal Play Focus</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="anal_focus" checked="">
+      </label>
+    
+      <label class="disabled">
+        <span>Body Types Preferred</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="body_types" disabled="">
+      </label>
+    
+      <label class="">
+        <span>Bondage &amp; Restraints</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="bondage" checked="">
+      </label>
+    
+      <label class="">
+        <span>Chastity Rituals</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="chastity" checked="">
+      </label>
+    
+      <label class="">
+        <span>Cock-Sucking Training</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="cocksuck" checked="">
+      </label>
+    
+      <label class="">
+        <span>Drone / Object</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="drone" checked="">
+      </label>
+    
+      <label class="">
+        <span>Edging / Gooning</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="edging" checked="">
+      </label>
+    
+      <label class="">
+        <span>Feet &amp; Worship</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="feet" checked="">
+      </label>
+    
+      <label class="">
+        <span>Fetish &amp; Fantasy</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="fetish" checked="">
+      </label>
+    
+      <label class="">
+        <span>Gear &amp; Clothing</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="gear" checked="">
+      </label>
+    
+      <label class="">
+        <span>Hypnosis &amp; Mindset</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="hypnosis" checked="">
+      </label>
+    
+      <label class="">
+        <span>Impact / CBT</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="impact" checked="">
+      </label>
+    
+      <label class="">
+        <span>Interaction Style</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="interaction" checked="">
+      </label>
+    
+      <label class="">
+        <span>Machine Play</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="machine" checked="">
+      </label>
+    
+      <label class="">
+        <span>Muscle Focus</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="muscle" checked="">
+      </label>
+    
+      <label class="">
+        <span>Nipple Torment</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="nipple" checked="">
+      </label>
+    
+      <label class="">
+        <span>Pet Play</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="pet" checked="">
+      </label>
+    
+      <label class="">
+        <span>Piss Play</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="piss" checked="">
+      </label>
+    
+      <label class="">
+        <span>Power Dynamics</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="power" checked="">
+      </label>
+    
+      <label class="">
+        <span>Rubber Obsession</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="rubber" checked="">
+      </label>
+    
+      <label class="">
+        <span>Scene Structure Elements</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="scene" checked="">
+      </label>
+    
+      <label class="">
+        <span>Sensation / Sensory</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="sensation" checked="">
+      </label>
+    
+      <label class="">
+        <span>Slave Dynamics</span>
+        <small>3 loops</small>
+        <input type="checkbox" data-topic="slave" checked="">
+      </label>
+    </div>
+    <button class="btn" id="kinkResetDefaults" style="margin-top:8px">Reset to defaults</button>
+  </div>
+</div>
+
+<div class="sidepanel right open" id="topicCuratorPanel" style="top:calc(var(--panel-stack-start) + var(--panel-stack-height) + var(--panel-stack-gap));height:var(--panel-stack-height)">
+  <button class="sideToggle" data-panel="topicCuratorPanel"><span>Master Topic Curator</span></button>
+  <div class="sideBody">
+    <h3 style="margin:0 0 6px;font:700 14px/1.2 &#39;Playfair Display&#39;,serif">Master Topic Curator</h3>
+    <p class="small">Soon you’ll be able to design custom kink bundles, reorder phrases in bulk, and export shareable presets. For now, curate by tapping the palette in the main hub.</p>
+    <p class="small" style="margin-top:10px">Roadmap</p>
+    <ul class="small" style="padding-left:18px;margin:4px 0">
+      <li>Drag to reorder kink pillars.</li>
+      <li>Tag phrases for personas + safety states.</li>
+      <li>Batch export to share with crews.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sidepanel right" id="requestPanel" style="top:calc(var(--panel-stack-start) + 2*(var(--panel-stack-height) + var(--panel-stack-gap)));height:var(--panel-stack-height)">
+  <button class="sideToggle" data-panel="requestPanel"><span>Custom Category Requests</span></button>
+  <div class="sideBody">
+    <h3 style="margin:0 0 6px;font:700 14px/1.2 &#39;Playfair Display&#39;,serif">Custom Category Requests</h3>
+    <p class="small">Sketch the kinks, sub-scenes, and riffs you want me to weave next. Premium queue unlocks soon; for now everything saves in your browser.</p>
+    <div id="poRequestFeed" class="requestFeed">
+      <div class="requestCard muted">
+        <header>
+          <span>Awaiting submissions</span>
+          <span class="requestMeta">Premium queue</span>
+        </header>
+        <p class="small">Sketch your dream categories and subs. We’ll spotlight them when the premium lane launches.</p>
+      </div>
+    </div>
+    <form id="poRequestForm" class="requestForm" style="margin-top:12px">
+      <div class="requestFormGroup">
+        <label for="poReqCategory">Category name</label>
+        <input id="poReqCategory" name="category" type="text" placeholder="e.g., Cybernetic Possession">
+      </div>
+      <div class="requestFormGroup">
+        <label for="poReqSubs">Sub-categories or beats</label>
+        <textarea id="poReqSubs" name="subs" placeholder="List scene beats, gear rituals, personas…"></textarea>
+      </div>
+      <div class="requestFormGroup">
+        <label for="poReqPhrases">Phrase sparks (up to 5)</label>
+        <textarea id="poReqPhrases" name="phrases" placeholder="Drop full lines or short prompts."></textarea>
+      </div>
+      <div class="requestFormGroup">
+        <label for="poReqNotes">Notes</label>
+        <textarea id="poReqNotes" name="notes" placeholder="Tone cues, music vibes, safety notes, etc."></textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn red" type="submit">Send request</button>
+      </div>
+    </form>
+    <p class="requestStatus" id="poRequestStatus" style="color: rgb(116, 128, 137);">Requests stay saved locally until Premium unlocks.</p>
+  </div>
+</div>
+
+<div class="sidepanel left" id="atmoPanel" style="top:calc(90px + 0px);height:40vh">
+  <button class="sideToggle" data-panel="atmoPanel"><span>Atmosphere Studio</span></button>
+  <div class="sideBody">
+    <h3 style="margin:0 0 6px;font:700 14px/1.2 &#39;Playfair Display&#39;,serif">Dungeon Atmosphere Studio</h3>
+    <p class="small">Bleed in drones, pulsed breaths, chain tremors, or static hiss while you sculpt the ritual.</p>
+    <div class="small">Theme preset</div>
+    <select id="studioTheme" class="inp">
+      <option value="steel">Steel Cathedral</option>
+      <option value="clinic">Clinical Ether</option>
+      <option value="ember">Ember Den</option>
+    </select>
+    <div class="small" style="margin-top:8px">Pulse tempo (BPM)</div>
+    <div class="row" style="gap:8px;align-items:center">
+      <input id="studioBpm" type="range" min="40" max="120" step="5" value="70" class="inp">
+      <input id="studioBpmNumber" type="number" min="40" max="120" step="5" value="70" class="inp" style="max-width:90px">
+    </div>
+    <div class="small" style="margin-top:8px">Master volume</div>
+    <div class="row" style="gap:8px;align-items:center">
+      <input id="studioVolume" type="range" min="0" max="0.4" step="0.01" value="0.12" class="inp">
+      <input id="studioVolumeNumber" type="number" min="0" max="0.4" step="0.01" value="0.12" class="inp" style="max-width:90px">
+    </div>
+    <div class="layerList" style="margin-top:8px">
+      <label><span>Steel drone</span><input type="checkbox" class="studioLayer" data-layer="drone" checked=""></label>
+      <label><span>Pulse heartbeat</span><input type="checkbox" class="studioLayer" data-layer="pulse" checked=""></label>
+      <label><span>Chain shimmer</span><input type="checkbox" class="studioLayer" data-layer="chains"></label>
+      <label><span>Breath hiss</span><input type="checkbox" class="studioLayer" data-layer="hiss"></label>
+      <label><span>Binaural theta</span><input type="checkbox" class="studioLayer" data-layer="binaural_theta"></label>
+      <label><span>Binaural delta</span><input type="checkbox" class="studioLayer" data-layer="binaural_delta"></label>
+      <label><span>Rain drift</span><input type="checkbox" class="studioLayer" data-layer="rain"></label>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn red" id="studioStart">Start atmosphere</button>
+      <button class="btn" id="studioStop">Stop</button>
+    </div>
+    <button class="btn" style="margin-top:6px" id="studioPremium">Custom track builder (premium soon)</button>
+    <div class="studioStatus" id="studioStatus">Layers idle.</div>
+  </div>
+</div>
+
+<!-- Analytics shim -->
+<script>
+(function(){
+  const KEY='fdm_analytics_queue';
+  function loadQ(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]') }catch(e){ return [] } }
+  function saveQ(q){ localStorage.setItem(KEY, JSON.stringify(q)) }
+  window.fdmTrack = function(event, props={}){
+    const payload = { t: Date.now(), app:'FDM', url: location.pathname, evt: event, props };
+    const q = loadQ(); q.push(payload); saveQ(q);
+    console.log('[FDM]', event, props);
+  };
+  fdmTrack('page_view', { page: 'hypnosis' });
+})();
+</script>
+
+<script>
+/* ===== Hypnosis core (SpeechSynthesis) ===== */
+const $=id=>document.getElementById(id);
+const LKEY='fdm_hyp_presets';
+const INVKEY='fdm_inventory';
+
+let voices=[], playTimer=null, humOsc=null, ctx=null, stopping=false;
+
+function loadPresets(){ try{ return JSON.parse(localStorage.getItem(LKEY)||'[]')}catch(e){return[]} }
+function savePresets(x){ localStorage.setItem(LKEY, JSON.stringify(x)) }
+function loadInventory(){ try{ const x=JSON.parse(localStorage.getItem(INVKEY)||'[]'); return Array.isArray(x)?x:[] }catch(e){return[]} }
+
+function hydrateVoices(){
+  voices = window.speechSynthesis.getVoices().filter(v=>/en|US|GB|AU|male|female/i.test(v.name+v.lang));
+  const sel=$('voice'); sel.innerHTML=voices.map((v,i)=>`<option value="${i}">${v.name} (${v.lang})</option>`).join('');
+}
+if ('speechSynthesis' in window) {
+  speechSynthesis.onvoiceschanged = hydrateVoices; hydrateVoices();
+}
+
+function seqFromWords(){
+  const raw = $('words').value
+    .split(/[\n,]/).map(s=>s.trim()).filter(Boolean);
+  const reps = Math.max(1, +$('reps').value||5);
+  let list = raw.flatMap(w=> Array.from({length:reps},()=>w));
+  if ($('shuffle').checked) list = list.sort(()=>Math.random()-0.5);
+  $('preview').textContent = list.join('  •  ');
+  return list;
+}
+window.seqFromWords = seqFromWords;
+function calcRate(wpm){ return Math.min(2.0, Math.max(0.5, (wpm||120)/120)); }
+
+function doFadeIn(){ document.body.animate([{opacity:0.85},{opacity:1}], {duration:600, fill:'both'}); }
+function doFadeOut(){ document.body.animate([{opacity:1},{opacity:0.85}], {duration:450, fill:'both'}); }
+
+function startHum(){
+  if (!$('hum').checked) return;
+  try{
+    ctx = ctx || new (window.AudioContext||window.webkitAudioContext)();
+    humOsc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    humOsc.type='sine'; humOsc.frequency.value = 90;
+    gain.gain.value = 0.02;
+    humOsc.connect(gain).connect(ctx.destination);
+    humOsc.start();
+  }catch(e){}
+}
+function stopHum(){ try{ humOsc && humOsc.stop(0); humOsc=null }catch(e){} }
+
+function speakSequence(list){
+  const idxVoice = +$('voice').value || 0;
+  const v = voices[idxVoice] || voices[0];
+  const rate = calcRate(+$('wpm').value||120);
+  const minutes = Math.max(0, +$('minutes').value||0);
+  const deadline = minutes ? Date.now()+minutes*60*1000 : null;
+
+  stopping=false;
+  const synth = window.speechSynthesis;
+  let i=0;
+
+  function speakNext(){
+    if (stopping) return;
+    if (deadline && Date.now()>=deadline) { stopAll(); return; }
+    const text = list[i % list.length];
+    const u = new SpeechSynthesisUtterance(text);
+    if (v) { u.voice = v; }
+    u.rate = rate;
+    u.onend = ()=>{
+      if (stopping) return;
+      playTimer = setTimeout(speakNext, 80);
+    };
+    synth.speak(u);
+    i++;
+  }
+  if ($('fade').checked) doFadeIn();
+  startHum();
+  fdmTrack('hyp_start', { wpm:+$('wpm').value||120, reps:+$('reps').value||5, minutes:+$('minutes').value||0, words:list.length });
+  speakNext();
+}
+
+function stopAll(){
+  stopping=true;
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  if (playTimer) { clearTimeout(playTimer); playTimer=null; }
+  stopHum();
+  if ($('fade').checked) doFadeOut();
+  fdmTrack('hyp_stop', {});
+  stopCommandLoop();
+}
+
+function savePreset(){
+  const presets = loadPresets();
+  const name = prompt('Preset name?');
+  if (!name) return;
+  presets.push({
+    name,
+    words: $('words').value,
+    reps: +$('reps').value||5,
+    wpm: +$('wpm').value||120,
+    minutes: +$('minutes').value||0,
+    fade: $('fade').checked,
+    hum: $('hum').checked,
+    shuffle: $('shuffle').checked
+  });
+  savePresets(presets);
+  hydratePresets();
+  fdmTrack('hyp_preset_save', { name });
+}
+function hydratePresets(){
+  const sel=$('presets');
+  const p=loadPresets();
+  sel.innerHTML = `<option value="">Load preset…</option>` + p.map((x,i)=>`<option value="${i}">${x.name}</option>`).join('');
+  sel.onchange = ()=>{
+    const i = +sel.value; if (isNaN(i)) return;
+    const x = p[i];
+    $('words').value = x.words||'';
+    $('reps').value = x.reps||5;
+    $('wpm').value = x.wpm||120;
+    $('minutes').value = x.minutes||0;
+    $('fade').checked = !!x.fade; $('hum').checked = !!x.hum; $('shuffle').checked = !!x.shuffle;
+    seqFromWords();
+    fdmTrack('hyp_preset_load', { name: x.name });
+  };
+}
+function hydrateInventoryQuickAdd(){
+  const inv = loadInventory();
+  const sel = $('inv');
+  sel.innerHTML = `<option value="">Choose an item…</option>` + inv.map(i=>`<option value="${i.name}">${i.name} — ${i.cat}</option>`).join('');
+  $('addInv').onclick = ()=>{
+    const v = sel.value; if (!v) return;
+    const cur = $('words').value.trim();
+    $('words').value = (cur ? cur + '\n' : '') + v;
+    seqFromWords();
+    fdmTrack('hyp_add_inv_word', { name:v });
+  };
+}
+
+let commandTimer = null;
+let commandIndex = 0;
+
+function getCommandLines(){
+  const source = $('poCommandList')?.value || '';
+  return source.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+}
+
+function buildCommandText(line){
+  const prefix = $('poCommandPrefix')?.value.trim();
+  return prefix ? `${prefix} ${line}` : line;
+}
+
+function speakCommandLine(line){
+  const text = buildCommandText(line);
+  if (!text) return;
+  const utter = new SpeechSynthesisUtterance(text);
+  const idxVoice = +$('voice').value || 0;
+  const voice = voices[idxVoice] || voices[0];
+  if (voice) utter.voice = voice;
+  utter.rate = calcRate(+$('wpm').value||120);
+  window.speechSynthesis.speak(utter);
+}
+
+function setCommandStatus(text){
+  const el = $('poCommandStatus');
+  if (el) el.textContent = text;
+}
+
+function startCommandLoop(){
+  const lines = getCommandLines();
+  if (!lines.length) {
+    alert('Add at least one command.');
+    return;
+  }
+  const interval = Math.max(5, +$('poCommandInterval')?.value || 20) * 1000;
+  stopCommandLoop();
+  commandIndex = 0;
+  const speakNext = () => {
+    speakCommandLine(lines[commandIndex % lines.length]);
+    commandIndex += 1;
+  };
+  speakNext();
+  commandTimer = setInterval(speakNext, interval);
+  setCommandStatus(`Commands running · every ${interval/1000}s`);
+}
+
+function stopCommandLoop(){
+  if (commandTimer) {
+    clearInterval(commandTimer);
+    commandTimer = null;
+  }
+  setCommandStatus('Commands idle.');
+}
+
+</script>
+
+<script type="module" src="./Feral Hypnotics — Therapy Tool_files/app.js.download"></script>
+<script defer="" src="./Feral Hypnotics — Therapy Tool_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;e8f355a9397647c78a12971ec6350cb3&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+<div class="sidepanel left" id="draftPanel" style="top:calc(90px + 40vh + 20px);height:40vh">
+  <button class="sideToggle" data-panel="draftPanel"><span>Drafts &amp; Topic</span></button>
+  <div class="sideBody">
+    <div class="small">Draft controls</div>
+    <div class="row" style="gap:6px;margin:8px 0">
+      <select id="poDraftSelect" class="inp"><option value="">Load draft…</option></select>
+      <button class="btn" id="poLoadDraft">Load</button>
+      <button class="btn" id="poResetDraft">Clear</button>
+    </div>
+    <button class="btn" id="poSaveDraftSide">Save current draft</button>
+    <hr>
+    <div class="small">Working topic</div>
+    <select id="poTopicSelect" class="inp"></select>
+  </div>
+</div>
+
+<div class="card" style="margin:18px auto;max-width:1100px">
+  <div class="sectiontitle">Word Loop Studio</div>
+  <div class="row" style="justify-content:space-between;align-items:center">
+    <div class="small">Keep the classic mantra engine handy while you sculpt the kink matrix above.</div>
+    <button class="btn" id="poSyncWords">Sync lyrics from ritual</button>
+  </div>
+  <div class="grid" style="margin-top:10px">
+    <div class="card" style="margin:0">
+      <div class="row">
+        <div style="flex:1">
+          <div class="small">Word list (comma or newline)</div>
+          <textarea id="words" class="inp" rows="6" placeholder="calm, breathe, soften, focus, surrender"></textarea>
+        </div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <div style="flex:1">
+          <div class="small">Repetitions per word</div>
+          <input id="reps" type="number" min="1" max="50" value="5" class="inp">
+        </div>
+        <div style="flex:1">
+          <div class="small">Pace (approx. WPM)</div>
+          <input id="wpm" type="number" min="40" max="220" value="120" class="inp">
+        </div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <div style="flex:1">
+          <div class="small">Loop length (minutes, 0 = infinite)</div>
+          <input id="minutes" type="number" min="0" max="180" value="0" class="inp">
+        </div>
+        <div style="flex:1">
+          <div class="small">Voice</div>
+          <select id="voice" class="inp"><option value="0">Microsoft David - English (United States) (en-US)</option><option value="1">Microsoft Richard - English (Canada) (en-CA)</option><option value="2">Microsoft Linda - English (Canada) (en-CA)</option><option value="3">Microsoft Mark - English (United States) (en-US)</option><option value="4">Microsoft Zira - English (United States) (en-US)</option><option value="5">Google US English (en-US)</option><option value="6">Google UK English Female (en-GB)</option><option value="7">Google UK English Male (en-GB)</option><option value="8">Google español de Estados Unidos (es-US)</option></select>
+        </div>
+      </div>
+      <div class="row" style="margin-top:8px;flex-wrap:wrap">
+        <label class="kpill"><input type="checkbox" id="fade" checked=""> soft fade in/out</label>
+        <label class="kpill"><input type="checkbox" id="hum"> candle hum</label>
+        <label class="kpill"><input type="checkbox" id="shuffle"> shuffle words</label>
+      </div>
+      <hr>
+      <div class="row">
+        <button class="btn red" id="start">Start</button>
+        <button class="btn" id="stop">Stop</button>
+        <button class="btn" id="save">Save preset</button>
+        <select id="presets" class="inp" style="max-width:220px"><option value="">Load preset…</option></select>
+      </div>
+      <div class="small" style="margin-top:6px">Tip: use Inventory quick-add below to pull words from your gear list.</div>
+    </div>
+    <div class="card" style="margin:0">
+      <div class="small">Planned sequence</div>
+      <div id="preview" class="preview"></div>
+      <hr>
+      <div class="row">
+        <div style="flex:1">
+          <div class="small">Inventory quick-add</div>
+          <select id="inv" class="inp"><option value="">Choose an item…</option></select>
+        </div>
+        <button class="btn" id="addInv">Add to word list</button>
+      </div>
+    </div>
+  </div>
+  <div class="customPanel">
+    <div class="row" style="align-items:center;justify-content:space-between">
+      <div class="small">Live Command Giver</div>
+      <div class="commandStatus" id="poCommandStatus">Commands idle.</div>
+    </div>
+    <textarea id="poCommandList" class="inp" placeholder="Enter live commands — one per line."></textarea>
+    <div class="row" style="margin-top:6px;gap:8px;flex-wrap:wrap">
+      <div style="flex:1">
+        <div class="small">Interval (seconds)</div>
+        <input id="poCommandInterval" type="number" min="5" max="120" value="20" class="inp">
+      </div>
+      <div style="flex:1">
+        <div class="small">Intro whisper</div>
+        <input id="poCommandPrefix" class="inp" placeholder="eg. obey, breathe">
+      </div>
+    </div>
+    <div class="commandControls">
+      <button class="btn" id="poCommandStart">Start commands</button>
+      <button class="btn" id="poCommandStop">Stop commands</button>
+      <button class="btn ghost" id="poCommandSpeak">Speak once</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin:18px auto;max-width:1100px">
+  <div class="sectiontitle">Narrative Script Studio (debug)</div>
+  <div id="poScriptOutput" class="scriptbox">
+    <div class="scriptPane" id="poScriptPhrasePane">
+      <div class="scriptPaneHead">
+        <strong>Phrase Library Feed</strong>
+        <span>Five ready-to-loop riffs per kink toggle.</span>
+      </div>
+      <div class="phraseActions">
+        <button class="btn" id="poPhrasePlay" disabled="">Play feed</button>
+        <button class="btn ghost" id="poPhraseSync" disabled="">Send to mantra</button>
+      </div>
+      <div class="scriptPaneBody" id="poScriptPhraseList"><em>Tap kink sub-options to generate five-line packs that match your persona and reinforcement tone.</em></div>
+    </div>
+    <div class="scriptPane" id="poScriptSectionPane">
+      <div class="scriptPaneHead">
+        <strong>Scene Score Outline</strong>
+        <span>Overture → Verse → Bridge → Chorus → Coda</span>
+      </div>
+      <div class="scriptPaneBody" id="poScriptSectionList">
+        <em>As you drop phrases into the ritual timeline, they’ll cascade here in order.</em>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  hydratePresets();
+  hydrateInventoryQuickAdd();
+  window.playPhraseFeed = function(lines){
+    if (!Array.isArray(lines) || !lines.length) return;
+    speakSequence(lines);
+  };
+  if ($('words')) {
+    $('words').oninput = seqFromWords;
+    ['reps','wpm','minutes','shuffle'].forEach(id=> $(id).onchange = seqFromWords);
+    $('start').onclick = ()=> speakSequence(seqFromWords());
+    $('stop').onclick  = stopAll;
+    $('save').onclick  = savePreset;
+    seqFromWords();
+  }
+  $('poCommandStart')?.addEventListener('click', startCommandLoop);
+  $('poCommandStop')?.addEventListener('click', stopCommandLoop);
+  $('poCommandSpeak')?.addEventListener('click', () => {
+    const line = getCommandLines()[0];
+    if (line) speakCommandLine(line);
+  });
+});
+</script>
+<script type="module" src="./Feral Hypnotics — Therapy Tool_files/app.js.download"></script>
+
+
+</body></html>

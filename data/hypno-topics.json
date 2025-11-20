@@ -1,0 +1,396 @@
+[
+  {
+    "id": "chastity",
+    "label": "Chastity & Denial",
+    "icon": "🔒",
+    "description": "Lock them down, edge them, starve release.",
+    "personas": ["sub","drone","pup"],
+    "reinforcement": ["praise","control","humiliation"],
+    "tags": ["denial","steel","cage"],
+    "subs": [
+      {
+        "id": "cage_invocation",
+        "label": "Cage Invocation",
+        "tone": "commanding",
+        "type": "intro",
+        "phases": ["arrival","induction"],
+        "moods": ["containment","anticipation"],
+        "tags": ["lock","keyholder"],
+        "reinforcement": "control",
+        "personas": ["sub","drone"],
+        "phrases": [
+          "Feel the ring close and the key disappear into my collar.",
+          "Your pulse syncs to the tiny clicks of the lock—each one erases another selfish urge.",
+          "Steel hugs your heat until it cools purple and obedient.",
+          "Every breath you take knocks softly at the bars, begging for permission.",
+          "The cage smiles when you flinch; it knows it's the only voice your cock hears."
+        ]
+      },
+      {
+        "id": "edge_commandments",
+        "label": "Edge Commandments",
+        "tone": "intense",
+        "type": "bridge",
+        "phases": ["play"],
+        "moods": ["denial","ecstasy"],
+        "tags": ["edges","countdown"],
+        "reinforcement": "humiliation",
+        "personas": ["sub","pup"],
+        "phrases": [
+          "I count you up to nine and leave you shaking at ten forever.",
+          "Your whimpers are incense—proof that you still worship my mercy.",
+          "Every edge carves a new rule down your spine: beg softer, need harder.",
+          "My palm holds you motionless until the tremor fades and obedience returns.",
+          "You stay leaking, not releasing; that's the liturgy tonight."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "petplay",
+    "label": "Pet Play",
+    "icon": "🐾",
+    "description": "Pups, kittens, ponies, pets obeying ritual.",
+    "personas": ["pup","kitten"],
+    "reinforcement": ["praise","humiliation"],
+    "tags": ["pet","obedience"],
+    "subs": [
+      {
+        "id": "kennel_welcome",
+        "label": "Kennel Welcome",
+        "tone": "warm",
+        "type": "intro",
+        "phases": ["arrival"],
+        "moods": ["worship","comfort"],
+        "tags": ["kennel","collar"],
+        "reinforcement": "praise",
+        "personas": ["pup","kitten"],
+        "phrases": [
+          "Knees hit the padded kennel and your tailbone lights up with belonging.",
+          "Collar settles around your throat—heavy enough to remind, soft enough to soothe.",
+          "I scratch the base of your skull until every human word melts.",
+          "Your leash clip sounds like a bell summoning the sweetest instincts.",
+          "You curl into the bedding and absorb my scent like a charged blanket."
+        ]
+      },
+      {
+        "id": "obedience_drill",
+        "label": "Obedience Drill",
+        "tone": "playful",
+        "type": "verse",
+        "phases": ["induction","play"],
+        "moods": ["obedience","energy"],
+        "tags": ["commands","treats"],
+        "reinforcement": "praise",
+        "personas": ["pup"],
+        "phrases": [
+          "Sit. Breathe. Heel. Each command braids tighter around your wagging brain.",
+          "Treats rain only when your tail writes my initials across the air.",
+          "Every ""yes, Handler"" shines your fangs until they glimmer submission.",
+          "When I tap twice, you freeze; when I snap once, you melt.",
+          "Good pups don't think—they echo. Be my echo."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "medical",
+    "label": "Medical Control",
+    "icon": "💉",
+    "description": "Clinical dominance, straps, breath monitors.",
+    "personas": ["drone","sub"],
+    "reinforcement": ["control","humiliation"],
+    "tags": ["clinic","monitor"],
+    "subs": [
+      {
+        "id": "prep_and_strap",
+        "label": "Prep & Strap",
+        "tone": "clinical",
+        "type": "intro",
+        "phases": ["arrival","induction"],
+        "moods": ["sterile","anticipation"],
+        "tags": ["table","restraints"],
+        "reinforcement": "control",
+        "personas": ["drone","sub"],
+        "phrases": [
+          "Vinyl gloves snap. Cold gel slides. Straps ratchet over pulse points.",
+          "Monitors light up with your surrender metrics.",
+          "I mask you before you can flinch; you breathe when I turn the dial.",
+          "The exam table hums, promising tests you can't study for.",
+          "You're charted as equipment, not patient."
+        ]
+      },
+      {
+        "id": "sensorium",
+        "label": "Sensorium",
+        "tone": "mechanical",
+        "type": "verse",
+        "phases": ["deepening","play"],
+        "moods": ["overload","focus"],
+        "tags": ["eeg","stim"],
+        "reinforcement": "control",
+        "personas": ["drone"],
+        "phrases": [
+          "Electrodes sip every stray impulse and feed them back on my schedule.",
+          "Your vitals draw worship glyphs across the monitor.",
+          "I numb one limb at a time until you're a diagram instead of a body.",
+          "Each tone from the machine is a fresh order.",
+          "You exist as data I own."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "latex",
+    "label": "Latex Worship",
+    "icon": "🧵",
+    "description": "Gloss, encasement, shine duties.",
+    "personas": ["sub","doll"],
+    "reinforcement": ["praise","worship"],
+    "tags": ["latex","shine"],
+    "subs": [
+      {
+        "id": "encasement",
+        "label": "Full Encasement",
+        "tone": "sensual",
+        "type": "intro",
+        "phases": ["arrival","induction"],
+        "moods": ["adoration","containment"],
+        "tags": ["catsuit","hood"],
+        "reinforcement": "worship",
+        "personas": ["doll","sub"],
+        "phrases": [
+          "Latex climbs your calves like nightfall and never stops.",
+          "Lubricant chills, latex warms, your mind liquefies.",
+          "Every seam aligns with a nerve line, turning you into circuitry.",
+          "I smooth wrinkles until even your thoughts shine.",
+          "Your exhale fogs the hood and paints a heart I own."
+        ]
+      },
+      {
+        "id": "shine_service",
+        "label": "Shine Service",
+        "tone": "worship",
+        "type": "chorus",
+        "phases": ["play"],
+        "moods": ["praise","devotion"],
+        "tags": ["polish","service"],
+        "reinforcement": "praise",
+        "personas": ["sub"],
+        "phrases": [
+          "You buff every panel of my suit while whispering its commandments.",
+          "Each circle of the cloth is another orbit around me.",
+          "You shine me so bright it blinds you—perfect.",
+          "Latex squeaks approval when you breathe out 'yes, Sir.'",
+          "Your polish cloth smells like home."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "worship",
+    "label": "Worship & Praise",
+    "icon": "🕯",
+    "description": "Adoration, ritual kneeling, devotion.",
+    "personas": ["sub","pup","doll"],
+    "reinforcement": ["praise","worship"],
+    "tags": ["altar","kneel"],
+    "subs": [
+      {
+        "id": "altar_service",
+        "label": "Altar Service",
+        "tone": "anthemic",
+        "type": "chorus",
+        "phases": ["play"],
+        "moods": ["exaltation"],
+        "tags": ["kneel","kiss"],
+        "reinforcement": "worship",
+        "personas": ["sub","pup"],
+        "phrases": [
+          "Knees bruise into sacred sigils.",
+          "You breathe my title and the dungeon brightens.",
+          "My palm crowns you; your mouth crowns me.",
+          "Every bow drips honey down your spine.",
+          "The altar only accepts you when you're trembling."
+        ]
+      },
+      {
+        "id": "praise_flood",
+        "label": "Praise Flood",
+        "tone": "warm",
+        "type": "release",
+        "phases": ["release"],
+        "moods": ["aftercare"],
+        "tags": ["cuddle","blanket"],
+        "reinforcement": "praise",
+        "personas": ["sub","pup"],
+        "phrases": [
+          "I wrap you in fur and words until you purr.",
+          "Each heartbeat says 'good pet' louder than my mouth does.",
+          "You melt into aftercare like wax under flame.",
+          "My thumbs paint 'beloved' across your cheeks.",
+          "Release tastes like honeyed smoke tonight."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "reinforcement",
+    "label": "Reinforcement",
+    "icon": "⚖️",
+    "description": "Positive, neutral, or degrading tone packages.",
+    "personas": ["sub","pup","drone","jock"],
+    "reinforcement": ["praise","neutral","humiliation"],
+    "tags": ["tone","reward"],
+    "subs": [
+      {
+        "id": "good_creature",
+        "label": "Good Creature",
+        "tone": "warm",
+        "type": "verse",
+        "phases": ["induction","release"],
+        "moods": ["comfort"],
+        "tags": ["praise"],
+        "reinforcement": "praise",
+        "personas": ["pup","sub"],
+        "phrases": [
+          "Good boy, good pup, good drone—whatever you are, you're perfect when you yield.",
+          "I count your breaths as trophies.",
+          "My knuckles under your chin remind you where home is.",
+          "The more you obey, the more the dungeon spoils you.",
+          "Your devotion earns every stroke of approval."
+        ]
+      },
+      {
+        "id": "bad_dog",
+        "label": "Bad Dog",
+        "tone": "sharp",
+        "type": "bridge",
+        "phases": ["deepening","play"],
+        "moods": ["humiliation"],
+        "tags": ["tease","degrade"],
+        "reinforcement": "humiliation",
+        "personas": ["pup","jock"],
+        "phrases": [
+          "Bad dog only gets breath when I feel generous.",
+          "You crave insults more than oxygen—admit it.",
+          "Your place is under my boot until I say otherwise.",
+          "Drool on the floor and prove you're not worth cushions.",
+          "Every mistake earns another denial."
+        ]
+      },
+      {
+        "id": "neutral_drone",
+        "label": "Drone Affirmations",
+        "tone": "mechanical",
+        "type": "verse",
+        "phases": ["induction","deepening"],
+        "moods": ["objectification"],
+        "tags": ["mantra","drone"],
+        "reinforcement": "neutral",
+        "personas": ["drone"],
+        "phrases": [
+          "This unit obeys. This unit breathes when instructed.",
+          "Awaiting next command. Awaiting sensation. Awaiting identity.",
+          "Deeper compliance equals deeper functionality.",
+          "Pleasure not authorized unless granted.",
+          "Unit hums at frequency Sir sets."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "impact",
+    "label": "Impact & Rhythm",
+    "icon": "🩸",
+    "description": "Spanking, flogging, drum-beat trances.",
+    "personas": ["sub","jock"],
+    "reinforcement": ["praise","humiliation"],
+    "tags": ["impact","drum"],
+    "subs": [
+      {
+        "id": "warmup",
+        "label": "Warm-up Cadence",
+        "tone": "rhythmic",
+        "type": "verse",
+        "phases": ["induction","play"],
+        "moods": ["anticipation"],
+        "tags": ["paddle","hand"],
+        "reinforcement": "praise",
+        "personas": ["sub","jock"],
+        "phrases": [
+          "Handprints bloom like ritual stamps.",
+          "The rhythm rewires your heartbeat to mine.",
+          "Each crack is a drumbeat that slams you deeper.",
+          "Warmth spreads, mind narrows.",
+          "Count the hits, lose the thoughts."
+        ]
+      },
+      {
+        "id": "strapping",
+        "label": "Strapping Sermon",
+        "tone": "intense",
+        "type": "chorus",
+        "phases": ["play"],
+        "moods": ["catharsis"],
+        "tags": ["strap","bench"],
+        "reinforcement": "humiliation",
+        "personas": ["sub"],
+        "phrases": [
+          "Leather bites until you sob praise.",
+          "Every welt is another verse etched in you.",
+          "You thank me between cries because you know you earned it.",
+          "Impact baptizes you in scarlet heat.",
+          "The bench holds you; I remake you."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hypno_daddy",
+    "label": "Hypno Daddy",
+    "icon": "🎩",
+    "description": "Parental dom energy, swagger, swaggered counting.",
+    "personas": ["sub","boy","jock"],
+    "reinforcement": ["praise","humiliation"],
+    "tags": ["daddy","swagger"],
+    "subs": [
+      {
+        "id": "arrival_drawl",
+        "label": "Arrival Drawl",
+        "tone": "smooth",
+        "type": "intro",
+        "phases": ["arrival"],
+        "moods": ["confidence"],
+        "tags": ["smirk","stare"],
+        "reinforcement": "praise",
+        "personas": ["boy","jock"],
+        "phrases": [
+          "Daddy's grin snaps your spine straight and your brain soft.",
+          "I tilt your chin up with two fingers and own your future.",
+          "The room smells like leather seats and bad decisions.",
+          "You don't sit until I say, and you love that.",
+          "My drawl drips into your ears and glues them shut to anyone else."
+        ]
+      },
+      {
+        "id": "discipline",
+        "label": "Discipline Hour",
+        "tone": "stern",
+        "type": "bridge",
+        "phases": ["deepening","play"],
+        "moods": ["authority"],
+        "tags": ["belt","lecture"],
+        "reinforcement": "humiliation",
+        "personas": ["boy","jock"],
+        "phrases": [
+          "Daddy's belt hangs handy for quick lessons.",
+          "You recite your rules while I tighten my fist in your hair.",
+          "Every 'yes, Sir' has to be louder than the last.",
+          "I pat your cheek after each scold just to watch you blush harder.",
+          "My approval is your oxygen."
+        ]
+      }
+    ]
+  }
+]

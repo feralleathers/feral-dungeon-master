@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mini Dungeon — Preview Mode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#050607; --panel:#0b0f14; --line:#1c222c; --muted:#9ba4b7; --accent:#f0415d; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:#f7f7f7; font-family:'Inter',system-ui,sans-serif; }
+    .ribbon { background:linear-gradient(90deg,#6a0f20,#f0415d); color:#fff; padding:12px 18px; font:600 14px/1.4 'Inter'; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .ribbon a { border:1px solid rgba(255,255,255,.6); padding:8px 14px; border-radius:999px; color:#fff; text-decoration:none; font-weight:600; }
+    main { max-width:1100px; margin:0 auto; padding:32px 18px 60px; display:grid; gap:18px; grid-template-columns:320px 1fr 300px; }
+    @media (max-width:960px) { main { grid-template-columns:1fr; } }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:18px; }
+    h2,h3 { font-family:'Playfair Display',serif; margin:0 0 10px; }
+    .item-list button { width:100%; margin-bottom:8px; border:1px solid var(--line); border-radius:12px; padding:10px; background:#0f141b; color:#fff; font:600 13px 'Inter'; cursor:pointer; text-align:left; }
+    .bodybox { min-height:420px; display:flex; align-items:center; justify-content:center; border:1px dashed var(--line); border-radius:16px; }
+    .bodybox span { color:var(--muted); font-size:13px; text-align:center; line-height:1.4; display:block; max-width:280px; }
+    .sidebar { display:flex; flex-direction:column; gap:14px; }
+    .perk { background:#10141b; border:1px solid var(--line); border-radius:12px; padding:12px; font-size:13px; line-height:1.4; color:var(--muted); }
+    .disabled { opacity:0.6; border-style:dashed; }
+    .form { display:flex; flex-direction:column; gap:10px; }
+    input[type="email"] { padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#080b10; color:#fff; font:600 13px 'Inter'; }
+    button.cta { border:none; border-radius:10px; padding:10px 12px; background:var(--accent); color:#fff; font:600 13px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="ribbon">
+    <div>You’re exploring the Mini Dungeon. Upgrade for $10/mo or $200 lifetime to unlock all layers, exports, and sync.</div>
+    <a href="dungeon-sales.html">Upgrade to full suite</a>
+  </div>
+
+  <main>
+    <section class="panel">
+      <h3>Included categories</h3>
+      <div class="item-list">
+        <button data-cat="Restraints">Restraints · cuffs, jackets, straps</button>
+        <button data-cat="Sensations">Sensations · wax, pinwheels, percussion</button>
+        <button data-cat="Furniture">Furniture · benches, crosses, cradles</button>
+      </div>
+      <p style="color:var(--muted);font-size:12px;line-height:1.5;margin-top:10px;">Need machines, outfits, hypnosis cue linking, analytics, and encrypted profiles? Upgrade to unlock everything.</p>
+    </section>
+
+    <section class="panel bodybox">
+      <span>Select a zone, drop one of the demo items, and feel how mirroring + placement hints behave. In the full app, every catalog item syncs here instantly.</span>
+    </section>
+
+    <aside class="sidebar">
+      <div class="panel perk">
+        <strong style="display:block;color:#fff;margin-bottom:6px;">Why upgrade?</strong>
+        <ul style="margin:0;padding-left:18px;">
+          <li>Unlimited categories + custom gear</li>
+          <li>Encrypted profiles & Cloudflare sync</li>
+          <li>Safety + hypnosis intelligence</li>
+          <li>Commerce + analytics roadmap</li>
+        </ul>
+      </div>
+      <div class="panel perk disabled">
+        <strong style="color:#fff;display:block;margin-bottom:6px;">Exports locked</strong>
+        <div>CSV/JSON exports are disabled in Mini Mode. Upgrade to save layouts + share scenes.</div>
+      </div>
+      <div class="panel">
+        <strong style="display:block;margin-bottom:6px;">Stay in the loop</strong>
+        <form class="form">
+          <input type="email" placeholder="Email for release notes">
+          <button type="button" class="cta">Send me launch updates</button>
+        </form>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>
